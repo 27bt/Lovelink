@@ -14,15 +14,12 @@ body{background:#0d0a14;min-height:100vh;font-family:'DM Sans',sans-serif;color:
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes bounce{to{transform:translateY(-10px)}}
-
 h1{font-family:'Playfair Display',serif;font-size:3rem;color:#fff;letter-spacing:-1px;text-align:center}
 h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;text-align:center}
 h3{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:#a78bca;margin-bottom:6px;margin-top:14px}
-
 input{width:100%;padding:12px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#f0e6ff;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;transition:.2s}
 input:focus{border-color:#c084fc;background:rgba(192,132,252,.08)}
 input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight:700}
-
 .btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px;transition:.2s}
 .btn-primary{background:linear-gradient(135deg,#c084fc,#818cf8);color:#fff}
 .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,132,252,.4)}
@@ -35,15 +32,11 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 .btn-send:hover{background:#a855f7;transform:translateY(-1px)}
 .btn-send.guess-btn{background:#818cf8}
 .btn-send.guess-btn:hover{background:#6366f1}
-
 .btn-group{display:flex;flex-direction:column;gap:10px;width:100%}
 .form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;width:100%;display:flex;flex-direction:column;gap:4px}
-
-.error-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:10px 20px;color:#ff6b6b;font-size:.85rem;z-index:99}
-
+.error-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:10px 20px;color:#ff6b6b;font-size:.85rem;z-index:99;max-width:90vw;text-align:center}
 .hearts{font-size:1.1rem;letter-spacing:8px;color:#c084fc;animation:pulse 2s infinite;text-align:center}
 .tagline{color:#a78bca;font-size:1rem;text-align:center}
-
 .room-code-box{background:rgba(192,132,252,.1);border:1.5px solid rgba(192,132,252,.3);border-radius:20px;padding:24px;width:100%;text-align:center}
 .label{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:#a78bca;display:block;margin-bottom:4px}
 .big-code{font-family:'Playfair Display',serif;font-size:2.5rem;color:#c084fc;display:block;letter-spacing:8px;margin:8px 0}
@@ -52,7 +45,6 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 .player-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:12px;padding:12px 16px;font-size:.95rem}
 .dot{width:8px;height:8px;background:#7fff9e;border-radius:50%;display:inline-block;flex-shrink:0}
 .waiting-anim{color:#7c6a9e;font-size:.9rem;animation:pulse 1.5s infinite;text-align:center;padding:8px}
-
 .scoreboard{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:16px;padding:12px 16px;width:100%}
 .score-card{display:flex;flex-direction:column;align-items:center;gap:2px}
 .sname{font-size:.7rem;color:#a78bca;text-transform:uppercase;letter-spacing:1px}
@@ -77,14 +69,12 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 .guess-chip.miss{background:rgba(255,107,107,.1);color:#ff6b6b;border:1px solid rgba(255,107,107,.2)}
 .guess-chip.hit{background:rgba(127,255,158,.1);color:#7fff9e;border:1px solid rgba(127,255,158,.2)}
 .panel{display:flex;flex-direction:column;gap:12px;width:100%}
-
 .trophy{font-size:4rem;animation:bounce .6s ease infinite alternate}
 .final-scores{width:100%;background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden}
 .final-score-row{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.95rem}
 .final-score-row:last-child{border-bottom:none}
 .final-score-row.mine{background:rgba(192,132,252,.08);color:#e0ccff;font-weight:600}
-
-.loading{color:#a78bca;font-size:.9rem;text-align:center;animation:pulse 1.5s infinite}
+.reconnect-banner{background:rgba(255,200,100,.08);border:1px solid rgba(255,200,100,.2);border-radius:12px;padding:10px 16px;font-size:.8rem;color:#ffd97d;text-align:center;width:100%}
 </style>
 </head>
 <body>
@@ -182,272 +172,256 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 
 <div id="error-toast" class="error-toast hidden"></div>
 
-<!-- Firebase -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, get, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { initializeApp }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, get, onValue, update, remove }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// ── Config ──────────────────────────────────────────────────────────────────
-const FB_URL = "https://lovelink-8af5f-default-rtdb.firebaseio.com";
-const app = initializeApp({ databaseURL: FB_URL }, "lovelink");
+// ── Firebase ──────────────────────────────────────────────────────────────────
+const app = initializeApp({ databaseURL: "https://lovelink-8af5f-default-rtdb.firebaseio.com" }, "lovelink");
 const db  = getDatabase(app);
 
+// ── Constants ──────────────────────────────────────────────────────────────────
 const WORDS = ["Moonlight","Breakfast","Adventure","Penguin","Rainbow","Spaghetti","Sunflower","Thunderstorm","Chocolate","Elephant","Fireworks","Waterfall","Butterfly","Mountain","Cinema","Guitar","Library","Volcano","Treasure","Carnival","Lighthouse","Hammock","Crocodile","Snowflake","Saxophone","Dragonfly","Telescope","Pineapple","Hurricane","Cathedral","Umbrella","Dinosaur","Spaceship","Jellyfish","Cinnamon","Avalanche","Submarine","Constellation","Trampoline","Quicksand"];
 const ROUND_TIME = 60, MAX_ROUNDS = 5;
+const SESSION_KEY = "lovelink_session";
 
-const myId = "p_" + Math.random().toString(36).slice(2, 10);
+// ── State ──────────────────────────────────────────────────────────────────────
+// Restore or create a stable player ID
+let myId = localStorage.getItem("lovelink_pid");
+if (!myId) { myId = "p_" + Math.random().toString(36).slice(2,10); localStorage.setItem("lovelink_pid", myId); }
+
 let myName = "", roomId = null, unsubscribe = null, timerInterval = null, currentRoom = null;
 
-// ── Firebase helpers ─────────────────────────────────────────────────────────
-const roomRef  = () => ref(db, `rooms/${roomId}`);
-const getRoom  = async () => (await get(roomRef())).val();
-const setRoom  = (data) => set(roomRef(), data);
-const patchRoom = (data) => update(roomRef(), data);
+// ── Helpers ────────────────────────────────────────────────────────────────────
+const $        = id => document.getElementById(id);
+const show     = id => $(id).classList.remove("hidden");
+const hide     = id => $(id).classList.add("hidden");
+const randWord = ()  => WORDS[Math.floor(Math.random() * WORDS.length)];
+const genCode  = ()  => Math.random().toString(36).slice(2,8).toUpperCase();
+const rRef     = ()  => ref(db, `rooms/${roomId}`);
+const getRoom  = async () => (await get(rRef())).val();
+const setRoom  = data => set(rRef(), data);
+const patchRoom= data => update(rRef(), data);
 
-function randWord() { return WORDS[Math.floor(Math.random() * WORDS.length)]; }
-function genCode()  { return Math.random().toString(36).slice(2, 8).toUpperCase(); }
-
-// ── UI helpers ───────────────────────────────────────────────────────────────
-const $  = id => document.getElementById(id);
-const show = id => $(id).classList.remove("hidden");
-const hide = id => $(id).classList.add("hidden");
+function saveSession() { localStorage.setItem(SESSION_KEY, JSON.stringify({ myId, myName, roomId })); }
+function clearSession(){ localStorage.removeItem(SESSION_KEY); }
 
 function goScreen(name) {
   ["home","waiting","game","result"].forEach(s =>
-    s === name ? show("screen-" + s) : hide("screen-" + s));
+    s === name ? show("screen-"+s) : hide("screen-"+s));
 }
-
 function showError(msg) {
   const t = $("error-toast");
-  t.textContent = msg;
-  t.classList.remove("hidden");
+  t.textContent = msg; t.classList.remove("hidden");
   setTimeout(() => t.classList.add("hidden"), 3500);
 }
 
-window.showHomeMode = function(mode) {
+window.showHomeMode = mode => {
   hide("home-main-btns"); hide("home-create"); hide("home-join");
-  if (!mode)           show("home-main-btns");
-  else if (mode === "create") show("home-create");
-  else                 show("home-join");
+  if (!mode)            show("home-main-btns");
+  else if (mode==="create") show("home-create");
+  else                  show("home-join");
 };
 
-// ── Live listener ────────────────────────────────────────────────────────────
+// ── Live listener ──────────────────────────────────────────────────────────────
 function listenRoom() {
   if (unsubscribe) unsubscribe();
-  unsubscribe = onValue(roomRef(), snap => {
+  unsubscribe = onValue(rRef(), snap => {
     const r = snap.val();
     if (!r) return;
     const prev = currentRoom?.phase;
     currentRoom = r;
-    if      (r.phase === "waiting" && prev === "result")  { renderWaiting(); goScreen("waiting"); }
-    else if (r.phase === "playing" && prev !== "playing") { renderGame(); }
-    else if (r.phase === "result"  && prev !== "result")  { stopTimer(); renderResult(); goScreen("result"); }
-    else if (r.phase === "playing")                        { refreshGameUI(); }
-    // Host auto-advances on timeout
-    if (r.phase === "playing" && r.hostId === myId && r.currentRound?.startedAt) {
+
+    if      (r.phase==="waiting" && prev==="result")   { renderWaiting(); goScreen("waiting"); }
+    else if (r.phase==="playing" && prev!=="playing")  { renderGame(); }
+    else if (r.phase==="result"  && prev!=="result")   { stopTimer(); renderResult(); goScreen("result"); }
+    else if (r.phase==="playing")                       { refreshGameUI(); }
+    else if (r.phase==="waiting")                       { renderWaiting(); }
+
+    // Host auto-advance on round timeout
+    if (r.phase==="playing" && r.hostId===myId && r.currentRound?.startedAt) {
       const elapsed = Math.floor((Date.now() - r.currentRound.startedAt) / 1000);
       if (elapsed >= ROUND_TIME) advanceRound(r);
     }
   });
 }
 
-// ── Create ───────────────────────────────────────────────────────────────────
-window.handleCreate = async function() {
-  const n = $("create-name").value.trim();
-  if (!n) return;
-  myName = n;
-  roomId = genCode();
+// ── Session restore on page load ───────────────────────────────────────────────
+async function tryRestoreSession() {
+  const raw = localStorage.getItem(SESSION_KEY);
+  if (!raw) return;
+  try {
+    const s = JSON.parse(raw);
+    // myId is already restored from lovelink_pid above
+    myName = s.myName; roomId = s.roomId;
+    const r = await getRoom();
+    if (!r || !r.players?.[myId]) { clearSession(); return; } // room gone or we're not in it
+    currentRoom = r;
+    if      (r.phase==="waiting") { renderWaiting(); goScreen("waiting"); }
+    else if (r.phase==="playing") { renderGame(); goScreen("game"); }
+    else if (r.phase==="result")  { renderResult(); goScreen("result"); }
+    listenRoom();
+  } catch { clearSession(); }
+}
+
+// ── Create ─────────────────────────────────────────────────────────────────────
+window.handleCreate = async () => {
+  const n = $("create-name").value.trim(); if (!n) return;
+  myName = n; roomId = genCode();
   const room = {
-    id: roomId, hostId: myId, phase: "waiting",
-    players: { [myId]: { id: myId, name: n } },
-    scores:  { [myId]: 0 },
-    round: 0, maxRounds: MAX_ROUNDS, currentRound: null
+    id:roomId, hostId:myId, phase:"waiting",
+    players:{ [myId]:{ id:myId, name:n } },
+    scores:{ [myId]:0 },
+    round:0, maxRounds:MAX_ROUNDS, currentRound:null
   };
   await setRoom(room);
   currentRoom = room;
-  renderWaiting();
-  goScreen("waiting");
-  listenRoom();
+  saveSession();
+  renderWaiting(); goScreen("waiting"); listenRoom();
 };
 
-// ── Join ─────────────────────────────────────────────────────────────────────
-window.handleJoin = async function() {
+// ── Join ───────────────────────────────────────────────────────────────────────
+window.handleJoin = async () => {
   const n    = $("join-name").value.trim();
   const code = $("join-code").value.trim();
-  if (!n || code.length !== 6) return;
-  myName = n; roomId = code;
+  if (!n || code.length!==6) return;
+  myName=n; roomId=code;
   const existing = await getRoom();
-  if (!existing)                                    { showError("Room not found. Check the code."); roomId = null; return; }
-  if (Object.keys(existing.players || {}).length >= 2) { showError("Room is already full!"); roomId = null; return; }
-  await update(ref(db, `rooms/${roomId}/players`), { [myId]: { id: myId, name: n } });
-  await update(ref(db, `rooms/${roomId}/scores`),  { [myId]: 0 });
+  if (!existing)                                         { showError("Room not found. Check the code."); roomId=null; return; }
+  if (Object.keys(existing.players||{}).length >= 2 && !existing.players[myId]) { showError("Room is already full!"); roomId=null; return; }
+  await update(ref(db,`rooms/${roomId}/players`), { [myId]:{ id:myId, name:n } });
+  await update(ref(db,`rooms/${roomId}/scores`),  { [myId]: existing.scores?.[myId] ?? 0 });
   currentRoom = await getRoom();
-  renderWaiting();
-  goScreen("waiting");
-  listenRoom();
+  saveSession();
+  renderWaiting(); goScreen("waiting"); listenRoom();
 };
 
-// ── Waiting ──────────────────────────────────────────────────────────────────
+// ── Waiting ────────────────────────────────────────────────────────────────────
 function renderWaiting() {
   $("w-code").textContent = currentRoom.id;
-  const pl   = Object.values(currentRoom.players || {});
-  const list = $("w-players");
-  list.innerHTML = "";
+  const pl   = Object.values(currentRoom.players||{});
+  const list = $("w-players"); list.innerHTML="";
   pl.forEach(p => {
-    const d = document.createElement("div");
-    d.className = "player-chip";
-    d.innerHTML = `<span class="dot"></span> ${p.name} ${p.id === currentRoom.hostId ? "👑" : ""}`;
+    const d=document.createElement("div"); d.className="player-chip";
+    d.innerHTML=`<span class="dot"></span> ${p.name} ${p.id===currentRoom.hostId?"👑":""}`;
     list.appendChild(d);
   });
-  if (pl.length < 2) {
-    const w = document.createElement("div");
-    w.className = "waiting-anim";
-    w.textContent = "Waiting for partner to join…";
-    list.appendChild(w);
+  if (pl.length<2) {
+    const w=document.createElement("div"); w.className="waiting-anim"; w.textContent="Waiting for partner to join…"; list.appendChild(w);
   }
-  $("w-start-btn").style.display = (pl.length >= 2 && currentRoom.hostId === myId) ? "block" : "none";
+  $("w-start-btn").style.display = (pl.length>=2 && currentRoom.hostId===myId) ? "block" : "none";
 }
 
-window.handleStart = async function() {
-  await patchRoom({
-    phase: "playing", round: 1,
-    currentRound: { word: randWord(), giverId: myId, clues: [], guesses: [], startedAt: Date.now(), solved: false }
-  });
+window.handleStart = async () => {
+  await patchRoom({ phase:"playing", round:1, currentRound:{ word:randWord(), giverId:myId, clues:[], guesses:[], startedAt:Date.now(), solved:false } });
 };
 
-// ── Game ─────────────────────────────────────────────────────────────────────
+// ── Game ───────────────────────────────────────────────────────────────────────
 function renderGame() {
-  goScreen("game");
-  refreshGameUI();
-  stopTimer();
+  goScreen("game"); refreshGameUI(); stopTimer();
   timerInterval = setInterval(() => {
     if (!currentRoom?.currentRound?.startedAt) return;
-    const left = Math.max(0, ROUND_TIME - Math.floor((Date.now() - currentRoom.currentRound.startedAt) / 1000));
-    const el   = $("g-timer");
-    el.textContent = left + "s";
-    el.style.borderColor = el.style.color = left > 30 ? "#7fff9e" : left > 10 ? "#ffd97d" : "#ff6b6b";
+    const left = Math.max(0, ROUND_TIME - Math.floor((Date.now()-currentRoom.currentRound.startedAt)/1000));
+    const el=$("g-timer"); el.textContent=left+"s";
+    el.style.borderColor = el.style.color = left>30?"#7fff9e":left>10?"#ffd97d":"#ff6b6b";
   }, 500);
 }
-
-function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+function stopTimer(){ clearInterval(timerInterval); timerInterval=null; }
 
 function refreshGameUI() {
-  const r       = currentRoom?.currentRound || {};
-  const isGiver = r.giverId === myId;
-  const players = currentRoom?.players || {};
-  const scores  = currentRoom?.scores  || {};
-  const partner = Object.values(players).find(p => p.id !== myId);
+  const r       = currentRoom?.currentRound||{};
+  const isGiver = r.giverId===myId;
+  const players = currentRoom?.players||{};
+  const scores  = currentRoom?.scores||{};
+  const partner = Object.values(players).find(p=>p.id!==myId);
 
-  $("g-my-name").textContent      = myName;
-  $("g-partner-name").textContent = partner?.name || "Partner";
-  $("g-my-score").textContent     = scores[myId] || 0;
-  $("g-partner-score").textContent = scores[partner?.id] || 0;
-  $("g-round").textContent        = `Round ${currentRoom?.round || 1}/${currentRoom?.maxRounds || 5}`;
+  $("g-my-name").textContent       = myName;
+  $("g-partner-name").textContent  = partner?.name||"Partner";
+  $("g-my-score").textContent      = scores[myId]||0;
+  $("g-partner-score").textContent = scores[partner?.id]||0;
+  $("g-round").textContent         = `Round ${currentRoom?.round||1}/${currentRoom?.maxRounds||5}`;
 
   if (isGiver) {
     show("giver-panel"); hide("guesser-panel");
-    $("g-word").textContent = r.word || "";
-    const ca = $("g-clues-given"); ca.innerHTML = "";
-    (r.clues || []).forEach(c => {
-      const s = document.createElement("span"); s.className = "clue-bubble"; s.textContent = c; ca.appendChild(s);
-    });
+    $("g-word").textContent = r.word||"";
+    const ca=$("g-clues-given"); ca.innerHTML="";
+    (r.clues||[]).forEach(c=>{ const s=document.createElement("span"); s.className="clue-bubble"; s.textContent=c; ca.appendChild(s); });
   } else {
     hide("giver-panel"); show("guesser-panel");
-    $("g-partner-clue-label").textContent = `${partner?.name || "Partner"} is giving you clues…`;
-    $("g-word-length").textContent = `Word has ${(r.word || "").length} letters`;
-    const cd = $("g-clues-display"); cd.innerHTML = "";
-    if (!(r.clues || []).length) {
-      const s = document.createElement("span"); s.className = "waiting-anim"; s.textContent = "Waiting for first clue…"; cd.appendChild(s);
-    } else {
-      (r.clues || []).forEach(c => {
-        const s = document.createElement("span"); s.className = "clue-pill"; s.textContent = c; cd.appendChild(s);
-      });
-    }
-    const pg = $("g-past-guesses"); pg.innerHTML = "";
-    if ((r.guesses || []).length) {
-      const lbl = document.createElement("span"); lbl.textContent = "Previous: "; pg.appendChild(lbl);
-      (r.guesses || []).forEach(g => {
-        const s = document.createElement("span");
-        s.className = "guess-chip " + (g.toLowerCase() === (r.word || "").toLowerCase() ? "hit" : "miss");
-        s.textContent = g; pg.appendChild(s);
-      });
+    $("g-partner-clue-label").textContent = `${partner?.name||"Partner"} is giving you clues…`;
+    $("g-word-length").textContent = `Word has ${(r.word||"").length} letters`;
+    const cd=$("g-clues-display"); cd.innerHTML="";
+    if (!(r.clues||[]).length) { const s=document.createElement("span"); s.className="waiting-anim"; s.textContent="Waiting for first clue…"; cd.appendChild(s); }
+    else (r.clues||[]).forEach(c=>{ const s=document.createElement("span"); s.className="clue-pill"; s.textContent=c; cd.appendChild(s); });
+    const pg=$("g-past-guesses"); pg.innerHTML="";
+    if ((r.guesses||[]).length) {
+      const lbl=document.createElement("span"); lbl.textContent="Previous: "; pg.appendChild(lbl);
+      (r.guesses||[]).forEach(g=>{ const s=document.createElement("span"); s.className="guess-chip "+(g.toLowerCase()===(r.word||"").toLowerCase()?"hit":"miss"); s.textContent=g; pg.appendChild(s); });
     }
   }
 }
 
-window.sendClue = async function() {
-  const inp = $("clue-input"); const clue = inp.value.trim(); if (!clue) return;
-  inp.value = "";
-  const fresh = await getRoom(); if (!fresh) return;
-  const clues = [...(fresh.currentRound?.clues || []), clue];
-  await update(ref(db, `rooms/${roomId}/currentRound`), { clues });
+window.sendClue = async () => {
+  const inp=$("clue-input"); const clue=inp.value.trim(); if(!clue) return; inp.value="";
+  const fresh=await getRoom(); if(!fresh) return;
+  await update(ref(db,`rooms/${roomId}/currentRound`), { clues:[...(fresh.currentRound?.clues||[]),clue] });
 };
 
-window.sendGuess = async function() {
-  const inp = $("guess-input"); const guess = inp.value.trim(); if (!guess) return;
-  inp.value = "";
-  const fresh = await getRoom(); if (!fresh) return;
-  const correct = guess.toLowerCase() === (fresh.currentRound?.word || "").toLowerCase();
-  const elapsed = Math.floor((Date.now() - fresh.currentRound.startedAt) / 1000);
-  const pts     = correct ? Math.max(1, Math.ceil(((ROUND_TIME - elapsed) / ROUND_TIME) * 10)) : 0;
-
-  const fb = $("g-feedback");
-  fb.textContent = correct ? "✅ Correct!" : "❌ Wrong guess!";
-  fb.classList.remove("hidden");
-  setTimeout(() => fb.classList.add("hidden"), 1500);
-
-  const guesses = [...(fresh.currentRound?.guesses || []), guess];
-  await update(ref(db, `rooms/${roomId}/currentRound`), { guesses, solved: correct });
-  await update(ref(db, `rooms/${roomId}/scores`), { [myId]: (fresh.scores?.[myId] || 0) + pts });
-
-  if (correct && fresh.hostId === myId) {
-    setTimeout(async () => advanceRound(await getRoom()), 2000);
-  }
+window.sendGuess = async () => {
+  const inp=$("guess-input"); const guess=inp.value.trim(); if(!guess) return; inp.value="";
+  const fresh=await getRoom(); if(!fresh) return;
+  const correct = guess.toLowerCase()===(fresh.currentRound?.word||"").toLowerCase();
+  const elapsed = Math.floor((Date.now()-fresh.currentRound.startedAt)/1000);
+  const pts     = correct ? Math.max(1,Math.ceil(((ROUND_TIME-elapsed)/ROUND_TIME)*10)) : 0;
+  const fb=$("g-feedback");
+  fb.textContent=correct?"✅ Correct!":"❌ Wrong guess!"; fb.classList.remove("hidden");
+  setTimeout(()=>fb.classList.add("hidden"),1500);
+  await update(ref(db,`rooms/${roomId}/currentRound`), { guesses:[...(fresh.currentRound?.guesses||[]),guess], solved:correct });
+  await update(ref(db,`rooms/${roomId}/scores`), { [myId]:(fresh.scores?.[myId]||0)+pts });
+  if (correct && fresh.hostId===myId) setTimeout(async()=>advanceRound(await getRoom()),2000);
 };
 
 async function advanceRound(r) {
-  const next = (r.round || 1) + 1;
-  if (next > r.maxRounds) { await patchRoom({ phase: "result" }); return; }
-  const players    = Object.values(r.players || {});
-  const nextGiver  = players.find(p => p.id !== r.currentRound?.giverId)?.id || players[0]?.id;
-  await patchRoom({
-    round: next,
-    currentRound: { word: randWord(), giverId: nextGiver, clues: [], guesses: [], startedAt: Date.now(), solved: false }
-  });
+  const next=(r.round||1)+1;
+  if (next>r.maxRounds) { await patchRoom({phase:"result"}); return; }
+  const players   = Object.values(r.players||{});
+  const nextGiver = players.find(p=>p.id!==r.currentRound?.giverId)?.id||players[0]?.id;
+  await patchRoom({ round:next, currentRound:{ word:randWord(), giverId:nextGiver, clues:[], guesses:[], startedAt:Date.now(), solved:false } });
 }
 
-// ── Result ───────────────────────────────────────────────────────────────────
+// ── Result ──────────────────────────────────────────────────────────────────────
 function renderResult() {
-  const players = currentRoom?.players || {};
-  const scores  = currentRoom?.scores  || {};
-  const sorted  = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const winnerId = sorted[0]?.[0];
-  $("r-trophy").textContent = winnerId === myId ? "🏆" : "💪";
-  $("r-title").textContent  = winnerId === myId ? "You won!" : `${players[winnerId]?.name || "Partner"} won!`;
-  const sc = $("r-scores"); sc.innerHTML = "";
-  sorted.forEach(([id, pts]) => {
-    const d = document.createElement("div");
-    d.className = "final-score-row" + (id === myId ? " mine" : "");
-    d.innerHTML = `<span>${players[id]?.name || "Player"} ${id === winnerId ? "👑" : ""}</span><span>${pts} pts</span>`;
+  const players=currentRoom?.players||{}, scores=currentRoom?.scores||{};
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const winnerId=sorted[0]?.[0];
+  $("r-trophy").textContent = winnerId===myId?"🏆":"💪";
+  $("r-title").textContent  = winnerId===myId?"You won!":`${players[winnerId]?.name||"Partner"} won!`;
+  const sc=$("r-scores"); sc.innerHTML="";
+  sorted.forEach(([id,pts])=>{
+    const d=document.createElement("div"); d.className="final-score-row"+(id===myId?" mine":"");
+    d.innerHTML=`<span>${players[id]?.name||"Player"} ${id===winnerId?"👑":""}</span><span>${pts} pts</span>`;
     sc.appendChild(d);
   });
 }
 
-window.handlePlayAgain = async function() {
-  const resetScores = {};
-  Object.keys(currentRoom?.players || {}).forEach(id => resetScores[id] = 0);
-  await patchRoom({ phase: "waiting", round: 0, scores: resetScores, currentRound: null });
+window.handlePlayAgain = async () => {
+  const resetScores={};
+  Object.keys(currentRoom?.players||{}).forEach(id=>resetScores[id]=0);
+  await patchRoom({phase:"waiting",round:0,scores:resetScores,currentRound:null});
 };
 
-// ── Leave ────────────────────────────────────────────────────────────────────
-window.handleLeave = async function() {
-  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
-  stopTimer();
-  if (roomId) await remove(ref(db, `rooms/${roomId}`));
-  roomId = null; currentRoom = null;
-  showHomeMode(null);
-  goScreen("home");
+// ── Leave ────────────────────────────────────────────────────────────────────────
+window.handleLeave = async () => {
+  if (unsubscribe){unsubscribe();unsubscribe=null;}
+  stopTimer(); clearSession();
+  if (roomId) await remove(ref(db,`rooms/${roomId}`));
+  roomId=null; currentRoom=null;
+  showHomeMode(null); goScreen("home");
 };
+
+// ── Boot ─────────────────────────────────────────────────────────────────────────
+tryRestoreSession();
 </script>
 </body>
 </html>
