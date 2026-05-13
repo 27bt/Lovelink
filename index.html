@@ -8,20 +8,16 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d0a14;min-height:100vh;font-family:'DM Sans',sans-serif;color:#f0e6ff;display:flex;align-items:center;justify-content:center;padding:16px}
-#app{width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+#app{width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .screen{width:100%;display:flex;flex-direction:column;align-items:center;gap:16px;animation:fadeIn .3s ease}
 .hidden{display:none!important}
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes bounce{to{transform:translateY(-10px)}}
-@keyframes spin{to{transform:rotate(360deg)}}
 
 h1{font-family:'Playfair Display',serif;font-size:3rem;color:#fff;letter-spacing:-1px;text-align:center}
 h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;text-align:center}
 h3{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:#a78bca;margin-bottom:6px;margin-top:14px}
-
-.hearts{font-size:1.1rem;letter-spacing:8px;color:#c084fc;animation:pulse 2s infinite;text-align:center}
-.tagline{color:#a78bca;font-size:1rem;text-align:center}
 
 input{width:100%;padding:12px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#f0e6ff;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;transition:.2s}
 input:focus{border-color:#c084fc;background:rgba(192,132,252,.08)}
@@ -43,9 +39,11 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 .btn-group{display:flex;flex-direction:column;gap:10px;width:100%}
 .form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;width:100%;display:flex;flex-direction:column;gap:4px}
 
-.error-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:10px 20px;color:#ff6b6b;font-size:.85rem;z-index:99;transition:.3s}
+.error-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:10px 20px;color:#ff6b6b;font-size:.85rem;z-index:99}
 
-/* waiting */
+.hearts{font-size:1.1rem;letter-spacing:8px;color:#c084fc;animation:pulse 2s infinite;text-align:center}
+.tagline{color:#a78bca;font-size:1rem;text-align:center}
+
 .room-code-box{background:rgba(192,132,252,.1);border:1.5px solid rgba(192,132,252,.3);border-radius:20px;padding:24px;width:100%;text-align:center}
 .label{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:#a78bca;display:block;margin-bottom:4px}
 .big-code{font-family:'Playfair Display',serif;font-size:2.5rem;color:#c084fc;display:block;letter-spacing:8px;margin:8px 0}
@@ -53,9 +51,8 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 .players-list{display:flex;flex-direction:column;gap:10px;width:100%}
 .player-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:12px;padding:12px 16px;font-size:.95rem}
 .dot{width:8px;height:8px;background:#7fff9e;border-radius:50%;display:inline-block;flex-shrink:0}
-.waiting-anim{color:#7c6a9e;font-size:.9rem;animation:pulse 1.5s infinite;text-align:center}
+.waiting-anim{color:#7c6a9e;font-size:.9rem;animation:pulse 1.5s infinite;text-align:center;padding:8px}
 
-/* game */
 .scoreboard{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:16px;padding:12px 16px;width:100%}
 .score-card{display:flex;flex-direction:column;align-items:center;gap:2px}
 .sname{font-size:.7rem;color:#a78bca;text-transform:uppercase;letter-spacing:1px}
@@ -81,12 +78,13 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
 .guess-chip.hit{background:rgba(127,255,158,.1);color:#7fff9e;border:1px solid rgba(127,255,158,.2)}
 .panel{display:flex;flex-direction:column;gap:12px;width:100%}
 
-/* result */
 .trophy{font-size:4rem;animation:bounce .6s ease infinite alternate}
 .final-scores{width:100%;background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden}
 .final-score-row{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.95rem}
 .final-score-row:last-child{border-bottom:none}
 .final-score-row.mine{background:rgba(192,132,252,.08);color:#e0ccff;font-weight:600}
+
+.loading{color:#a78bca;font-size:.9rem;text-align:center;animation:pulse 1.5s infinite}
 </style>
 </head>
 <body>
@@ -105,15 +103,15 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
       <h3>Your Name</h3>
       <input id="create-name" placeholder="e.g. Kusia" maxlength="16"/>
       <button class="btn btn-primary" onclick="handleCreate()">Create & Get Room Code</button>
-      <button class="btn-ghost btn" onclick="showHomeMode(null)">← Back</button>
+      <button class="btn btn-ghost" onclick="showHomeMode(null)">← Back</button>
     </div>
     <div id="home-join" class="form-card hidden">
       <h3>Your Name</h3>
-      <input id="join-name" placeholder="e.g. Your partner" maxlength="16"/>
+      <input id="join-name" placeholder="e.g. Rita" maxlength="16"/>
       <h3>Room Code</h3>
       <input id="join-code" class="code-inp" placeholder="XXXXXX" maxlength="6" oninput="this.value=this.value.toUpperCase()"/>
       <button class="btn btn-primary" onclick="handleJoin()">Join Room</button>
-      <button class="btn-ghost btn" onclick="showHomeMode(null)">← Back</button>
+      <button class="btn btn-ghost" onclick="showHomeMode(null)">← Back</button>
     </div>
   </div>
 
@@ -126,7 +124,7 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
     </div>
     <div class="players-list" id="w-players"></div>
     <button class="btn btn-primary" id="w-start-btn" onclick="handleStart()" style="display:none;width:100%">Start Game ✨</button>
-    <button class="btn-ghost btn" onclick="handleLeave()">Leave Room</button>
+    <button class="btn btn-ghost" onclick="handleLeave()">Leave Room</button>
   </div>
 
   <!-- GAME -->
@@ -143,7 +141,6 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
       </div>
     </div>
     <div class="timer-ring" id="g-timer">60s</div>
-    <!-- Giver Panel -->
     <div class="panel" id="giver-panel">
       <div class="role-badge giver">You are giving clues 🗣️</div>
       <div class="secret-word-box">
@@ -157,7 +154,6 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
         <button class="btn-send" onclick="sendClue()">Send</button>
       </div>
     </div>
-    <!-- Guesser Panel -->
     <div class="panel hidden" id="guesser-panel">
       <div class="role-badge guesser">You are guessing 🤔</div>
       <p class="instruction" id="g-partner-clue-label">Partner is giving you clues…</p>
@@ -170,7 +166,7 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
       </div>
       <div class="past-guesses" id="g-past-guesses"></div>
     </div>
-    <button class="btn-ghost btn" style="width:auto;font-size:.8rem;margin-top:4px" onclick="handleLeave()">Leave Game</button>
+    <button class="btn btn-ghost" style="width:auto;font-size:.8rem;margin-top:4px" onclick="handleLeave()">Leave Game</button>
   </div>
 
   <!-- RESULT -->
@@ -179,211 +175,279 @@ input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight
     <h2 id="r-title">You won!</h2>
     <div class="final-scores" id="r-scores"></div>
     <button class="btn btn-primary" onclick="handlePlayAgain()">Play Again 🔄</button>
-    <button class="btn-ghost btn" onclick="handleLeave()">Leave</button>
+    <button class="btn btn-ghost" onclick="handleLeave()">Leave</button>
   </div>
 
 </div>
 
 <div id="error-toast" class="error-toast hidden"></div>
 
-<script>
-// ── Storage (shared via window.storage or fallback to localStorage key-value) ──
-const store = {
-  async get(k){try{const r=await window.storage.get(k,true);return r?JSON.parse(r.value):null}catch{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch{return null}}},
-  async set(k,v){try{await window.storage.set(k,JSON.stringify(v),true)}catch{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}},
-  async del(k){try{await window.storage.delete(k,true)}catch{try{localStorage.removeItem(k)}catch{}}}
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, get, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// ── Config ──────────────────────────────────────────────────────────────────
+const FB_URL = "https://lovelink-8af5f-default-rtdb.firebaseio.com";
+const app = initializeApp({ databaseURL: FB_URL }, "lovelink");
+const db  = getDatabase(app);
+
+const WORDS = ["Moonlight","Breakfast","Adventure","Penguin","Rainbow","Spaghetti","Sunflower","Thunderstorm","Chocolate","Elephant","Fireworks","Waterfall","Butterfly","Mountain","Cinema","Guitar","Library","Volcano","Treasure","Carnival","Lighthouse","Hammock","Crocodile","Snowflake","Saxophone","Dragonfly","Telescope","Pineapple","Hurricane","Cathedral","Umbrella","Dinosaur","Spaceship","Jellyfish","Cinnamon","Avalanche","Submarine","Constellation","Trampoline","Quicksand"];
+const ROUND_TIME = 60, MAX_ROUNDS = 5;
+
+const myId = "p_" + Math.random().toString(36).slice(2, 10);
+let myName = "", roomId = null, unsubscribe = null, timerInterval = null, currentRoom = null;
+
+// ── Firebase helpers ─────────────────────────────────────────────────────────
+const roomRef  = () => ref(db, `rooms/${roomId}`);
+const getRoom  = async () => (await get(roomRef())).val();
+const setRoom  = (data) => set(roomRef(), data);
+const patchRoom = (data) => update(roomRef(), data);
+
+function randWord() { return WORDS[Math.floor(Math.random() * WORDS.length)]; }
+function genCode()  { return Math.random().toString(36).slice(2, 8).toUpperCase(); }
+
+// ── UI helpers ───────────────────────────────────────────────────────────────
+const $  = id => document.getElementById(id);
+const show = id => $(id).classList.remove("hidden");
+const hide = id => $(id).classList.add("hidden");
+
+function goScreen(name) {
+  ["home","waiting","game","result"].forEach(s =>
+    s === name ? show("screen-" + s) : hide("screen-" + s));
+}
+
+function showError(msg) {
+  const t = $("error-toast");
+  t.textContent = msg;
+  t.classList.remove("hidden");
+  setTimeout(() => t.classList.add("hidden"), 3500);
+}
+
+window.showHomeMode = function(mode) {
+  hide("home-main-btns"); hide("home-create"); hide("home-join");
+  if (!mode)           show("home-main-btns");
+  else if (mode === "create") show("home-create");
+  else                 show("home-join");
 };
 
-const WORDS=["Moonlight","Breakfast","Adventure","Penguin","Rainbow","Spaghetti","Sunflower","Thunderstorm","Chocolate","Elephant","Fireworks","Waterfall","Butterfly","Mountain","Cinema","Guitar","Library","Volcano","Treasure","Carnival","Lighthouse","Hammock","Crocodile","Snowflake","Saxophone","Dragonfly","Telescope","Pineapple","Hurricane","Cathedral"];
-const ROUND_TIME=60,MAX_ROUNDS=5;
-const myId="p_"+Math.random().toString(36).slice(2,10);
-let myName="",room=null,pollTimer=null,timerInterval=null;
-
-function roomKey(){return room?`lovelink_room_${room.id}`:null}
-function rw(){return room?.currentRound||{}}
-function randWord(){return WORDS[Math.floor(Math.random()*WORDS.length)]}
-function genCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
-
-// ── UI helpers ──
-function show(id){document.getElementById(id).classList.remove("hidden")}
-function hide(id){document.getElementById(id).classList.add("hidden")}
-function goScreen(name){["home","waiting","game","result"].forEach(s=>s===name?show("screen-"+s):hide("screen-"+s))}
-function showError(msg){const t=document.getElementById("error-toast");t.textContent=msg;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),3000)}
-function showHomeMode(mode){
-  hide("home-main-btns");hide("home-create");hide("home-join");
-  if(!mode){show("home-main-btns")}
-  else if(mode==="create"){show("home-create")}
-  else{show("home-join")}
-}
-
-// ── Polling ──
-function startPoll(){
-  stopPoll();
-  pollTimer=setInterval(async()=>{
-    if(!roomKey())return;
-    const r=await store.get(roomKey());
-    if(!r)return;
-    const prevPhase=room?.phase;
-    room=r;
-    if(r.phase==="playing"&&prevPhase==="waiting")renderGame();
-    else if(r.phase==="result"&&prevPhase==="playing"){stopPoll();renderResult();goScreen("result")}
-    else if(r.phase==="waiting"&&prevPhase==="result"){renderWaiting();goScreen("waiting");startPoll()}
-    else if(r.phase==="playing")refreshGameUI();
-    // host auto-advance on timeout
-    if(r.phase==="playing"&&r.hostId===myId&&r.currentRound?.startedAt){
-      const elapsed=Math.floor((Date.now()-r.currentRound.startedAt)/1000);
-      if(elapsed>=ROUND_TIME)advanceRound(r);
+// ── Live listener ────────────────────────────────────────────────────────────
+function listenRoom() {
+  if (unsubscribe) unsubscribe();
+  unsubscribe = onValue(roomRef(), snap => {
+    const r = snap.val();
+    if (!r) return;
+    const prev = currentRoom?.phase;
+    currentRoom = r;
+    if      (r.phase === "waiting" && prev === "result")  { renderWaiting(); goScreen("waiting"); }
+    else if (r.phase === "playing" && prev !== "playing") { renderGame(); }
+    else if (r.phase === "result"  && prev !== "result")  { stopTimer(); renderResult(); goScreen("result"); }
+    else if (r.phase === "playing")                        { refreshGameUI(); }
+    // Host auto-advances on timeout
+    if (r.phase === "playing" && r.hostId === myId && r.currentRound?.startedAt) {
+      const elapsed = Math.floor((Date.now() - r.currentRound.startedAt) / 1000);
+      if (elapsed >= ROUND_TIME) advanceRound(r);
     }
-  },1200);
-}
-function stopPoll(){clearInterval(pollTimer);pollTimer=null;clearInterval(timerInterval);timerInterval=null}
-
-// ── Create / Join ──
-async function handleCreate(){
-  const n=document.getElementById("create-name").value.trim();
-  if(!n)return;
-  myName=n;
-  const id=genCode();
-  const key=`lovelink_room_${id}`;
-  room={id,hostId:myId,phase:"waiting",players:{[myId]:{id:myId,name:n}},scores:{[myId]:0},round:0,maxRounds:MAX_ROUNDS,currentRound:null};
-  await store.set(key,room);
-  renderWaiting();goScreen("waiting");startPoll();
-}
-async function handleJoin(){
-  const n=document.getElementById("join-name").value.trim();
-  const code=document.getElementById("join-code").value.trim();
-  if(!n||code.length!==6)return;
-  myName=n;
-  const key=`lovelink_room_${code}`;
-  const existing=await store.get(key);
-  if(!existing){showError("Room not found. Check the code.");return}
-  if(Object.keys(existing.players).length>=2){showError("Room is already full!");return}
-  room={...existing,players:{...existing.players,[myId]:{id:myId,name:n}},scores:{...existing.scores,[myId]:0}};
-  await store.set(key,room);
-  renderWaiting();goScreen("waiting");startPoll();
+  });
 }
 
-// ── Waiting ──
-function renderWaiting(){
-  document.getElementById("w-code").textContent=room.id;
-  const pl=Object.values(room.players||{});
-  const list=document.getElementById("w-players");
-  list.innerHTML="";
-  pl.forEach(p=>{
-    const d=document.createElement("div");d.className="player-chip";
-    d.innerHTML=`<span class="dot"></span> ${p.name} ${p.id===room.hostId?"👑":""}`;
+// ── Create ───────────────────────────────────────────────────────────────────
+window.handleCreate = async function() {
+  const n = $("create-name").value.trim();
+  if (!n) return;
+  myName = n;
+  roomId = genCode();
+  const room = {
+    id: roomId, hostId: myId, phase: "waiting",
+    players: { [myId]: { id: myId, name: n } },
+    scores:  { [myId]: 0 },
+    round: 0, maxRounds: MAX_ROUNDS, currentRound: null
+  };
+  await setRoom(room);
+  currentRoom = room;
+  renderWaiting();
+  goScreen("waiting");
+  listenRoom();
+};
+
+// ── Join ─────────────────────────────────────────────────────────────────────
+window.handleJoin = async function() {
+  const n    = $("join-name").value.trim();
+  const code = $("join-code").value.trim();
+  if (!n || code.length !== 6) return;
+  myName = n; roomId = code;
+  const existing = await getRoom();
+  if (!existing)                                    { showError("Room not found. Check the code."); roomId = null; return; }
+  if (Object.keys(existing.players || {}).length >= 2) { showError("Room is already full!"); roomId = null; return; }
+  await update(ref(db, `rooms/${roomId}/players`), { [myId]: { id: myId, name: n } });
+  await update(ref(db, `rooms/${roomId}/scores`),  { [myId]: 0 });
+  currentRoom = await getRoom();
+  renderWaiting();
+  goScreen("waiting");
+  listenRoom();
+};
+
+// ── Waiting ──────────────────────────────────────────────────────────────────
+function renderWaiting() {
+  $("w-code").textContent = currentRoom.id;
+  const pl   = Object.values(currentRoom.players || {});
+  const list = $("w-players");
+  list.innerHTML = "";
+  pl.forEach(p => {
+    const d = document.createElement("div");
+    d.className = "player-chip";
+    d.innerHTML = `<span class="dot"></span> ${p.name} ${p.id === currentRoom.hostId ? "👑" : ""}`;
     list.appendChild(d);
   });
-  if(pl.length<2){const w=document.createElement("div");w.className="waiting-anim";w.textContent="Waiting for partner to join…";list.appendChild(w)}
-  const sb=document.getElementById("w-start-btn");
-  sb.style.display=(pl.length>=2&&room.hostId===myId)?"block":"none";
-}
-async function handleStart(){
-  const updated={...room,phase:"playing",round:1,currentRound:{word:randWord(),giverId:myId,clues:[],guesses:[],startedAt:Date.now(),solved:false}};
-  room=updated;await store.set(roomKey(),updated);renderGame();
+  if (pl.length < 2) {
+    const w = document.createElement("div");
+    w.className = "waiting-anim";
+    w.textContent = "Waiting for partner to join…";
+    list.appendChild(w);
+  }
+  $("w-start-btn").style.display = (pl.length >= 2 && currentRoom.hostId === myId) ? "block" : "none";
 }
 
-// ── Game ──
-function renderGame(){
-  goScreen("game");refreshGameUI();
-  clearInterval(timerInterval);
-  timerInterval=setInterval(()=>{
-    if(!room?.currentRound?.startedAt)return;
-    const elapsed=Math.floor((Date.now()-room.currentRound.startedAt)/1000);
-    const left=Math.max(0,ROUND_TIME-elapsed);
-    const el=document.getElementById("g-timer");
-    el.textContent=left+"s";
-    if(left>30){el.style.borderColor="#7fff9e";el.style.color="#7fff9e"}
-    else if(left>10){el.style.borderColor="#ffd97d";el.style.color="#ffd97d"}
-    else{el.style.borderColor="#ff6b6b";el.style.color="#ff6b6b"}
-  },500);
+window.handleStart = async function() {
+  await patchRoom({
+    phase: "playing", round: 1,
+    currentRound: { word: randWord(), giverId: myId, clues: [], guesses: [], startedAt: Date.now(), solved: false }
+  });
+};
+
+// ── Game ─────────────────────────────────────────────────────────────────────
+function renderGame() {
+  goScreen("game");
+  refreshGameUI();
+  stopTimer();
+  timerInterval = setInterval(() => {
+    if (!currentRoom?.currentRound?.startedAt) return;
+    const left = Math.max(0, ROUND_TIME - Math.floor((Date.now() - currentRoom.currentRound.startedAt) / 1000));
+    const el   = $("g-timer");
+    el.textContent = left + "s";
+    el.style.borderColor = el.style.color = left > 30 ? "#7fff9e" : left > 10 ? "#ffd97d" : "#ff6b6b";
+  }, 500);
 }
-function refreshGameUI(){
-  const r=rw();const isGiver=r.giverId===myId;
-  const players=room.players||{};
-  const scores=room.scores||{};
-  const partnerEntry=Object.values(players).find(p=>p.id!==myId);
-  document.getElementById("g-my-name").textContent=myName;
-  document.getElementById("g-partner-name").textContent=partnerEntry?.name||"Partner";
-  document.getElementById("g-my-score").textContent=scores[myId]||0;
-  document.getElementById("g-partner-score").textContent=scores[partnerEntry?.id]||0;
-  document.getElementById("g-round").textContent=`Round ${room.round||1}/${room.maxRounds||5}`;
-  if(isGiver){
-    show("giver-panel");hide("guesser-panel");
-    document.getElementById("g-word").textContent=r.word||"";
-    const ca=document.getElementById("g-clues-given");ca.innerHTML="";
-    (r.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-bubble";s.textContent=c;ca.appendChild(s)});
+
+function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+
+function refreshGameUI() {
+  const r       = currentRoom?.currentRound || {};
+  const isGiver = r.giverId === myId;
+  const players = currentRoom?.players || {};
+  const scores  = currentRoom?.scores  || {};
+  const partner = Object.values(players).find(p => p.id !== myId);
+
+  $("g-my-name").textContent      = myName;
+  $("g-partner-name").textContent = partner?.name || "Partner";
+  $("g-my-score").textContent     = scores[myId] || 0;
+  $("g-partner-score").textContent = scores[partner?.id] || 0;
+  $("g-round").textContent        = `Round ${currentRoom?.round || 1}/${currentRoom?.maxRounds || 5}`;
+
+  if (isGiver) {
+    show("giver-panel"); hide("guesser-panel");
+    $("g-word").textContent = r.word || "";
+    const ca = $("g-clues-given"); ca.innerHTML = "";
+    (r.clues || []).forEach(c => {
+      const s = document.createElement("span"); s.className = "clue-bubble"; s.textContent = c; ca.appendChild(s);
+    });
   } else {
-    hide("giver-panel");show("guesser-panel");
-    document.getElementById("g-partner-clue-label").textContent=`${partnerEntry?.name||"Partner"} is giving you clues…`;
-    document.getElementById("g-word-length").textContent=`Word has ${(r.word||"").length} letters`;
-    const cd=document.getElementById("g-clues-display");cd.innerHTML="";
-    if((r.clues||[]).length===0){const s=document.createElement("span");s.className="waiting-anim";s.textContent="Waiting for first clue…";cd.appendChild(s)}
-    else (r.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-pill";s.textContent=c;cd.appendChild(s)});
-    const pg=document.getElementById("g-past-guesses");pg.innerHTML="";
-    if((r.guesses||[]).length>0){
-      const lbl=document.createElement("span");lbl.textContent="Previous: ";pg.appendChild(lbl);
-      (r.guesses||[]).forEach(g=>{const s=document.createElement("span");s.className="guess-chip "+(g.toLowerCase()===(r.word||"").toLowerCase()?"hit":"miss");s.textContent=g;pg.appendChild(s)});
+    hide("giver-panel"); show("guesser-panel");
+    $("g-partner-clue-label").textContent = `${partner?.name || "Partner"} is giving you clues…`;
+    $("g-word-length").textContent = `Word has ${(r.word || "").length} letters`;
+    const cd = $("g-clues-display"); cd.innerHTML = "";
+    if (!(r.clues || []).length) {
+      const s = document.createElement("span"); s.className = "waiting-anim"; s.textContent = "Waiting for first clue…"; cd.appendChild(s);
+    } else {
+      (r.clues || []).forEach(c => {
+        const s = document.createElement("span"); s.className = "clue-pill"; s.textContent = c; cd.appendChild(s);
+      });
+    }
+    const pg = $("g-past-guesses"); pg.innerHTML = "";
+    if ((r.guesses || []).length) {
+      const lbl = document.createElement("span"); lbl.textContent = "Previous: "; pg.appendChild(lbl);
+      (r.guesses || []).forEach(g => {
+        const s = document.createElement("span");
+        s.className = "guess-chip " + (g.toLowerCase() === (r.word || "").toLowerCase() ? "hit" : "miss");
+        s.textContent = g; pg.appendChild(s);
+      });
     }
   }
 }
-async function sendClue(){
-  const inp=document.getElementById("clue-input");const clue=inp.value.trim();if(!clue)return;
-  inp.value="";
-  const fresh=await store.get(roomKey());if(!fresh)return;
-  const updated={...fresh,currentRound:{...fresh.currentRound,clues:[...(fresh.currentRound.clues||[]),clue]}};
-  room=updated;await store.set(roomKey(),updated);refreshGameUI();
-}
-async function sendGuess(){
-  const inp=document.getElementById("guess-input");const guess=inp.value.trim();if(!guess)return;
-  inp.value="";
-  const fresh=await store.get(roomKey());if(!fresh)return;
-  const correct=guess.toLowerCase()===(fresh.currentRound?.word||"").toLowerCase();
-  const elapsed=Math.floor((Date.now()-fresh.currentRound.startedAt)/1000);
-  const pts=correct?Math.max(1,Math.ceil(((ROUND_TIME-elapsed)/ROUND_TIME)*10)):0;
-  const fb=document.getElementById("g-feedback");
-  fb.textContent=correct?"✅ Correct!":"❌ Wrong guess!";fb.classList.remove("hidden");
-  setTimeout(()=>fb.classList.add("hidden"),1500);
-  const updated={...fresh,scores:{...fresh.scores,[myId]:(fresh.scores[myId]||0)+pts},currentRound:{...fresh.currentRound,guesses:[...(fresh.currentRound.guesses||[]),guess],solved:correct}};
-  room=updated;await store.set(roomKey(),updated);refreshGameUI();
-  if(correct&&fresh.hostId===myId)setTimeout(()=>advanceRound(updated),2000);
-}
-async function advanceRound(r){
-  const next=(r.round||1)+1;
-  const rk=`lovelink_room_${r.id}`;
-  if(next>r.maxRounds){const u={...r,phase:"result"};room=u;await store.set(rk,u);stopPoll();renderResult();goScreen("result");return}
-  const players=Object.values(r.players||{});
-  const prevGiver=r.currentRound?.giverId;
-  const nextGiver=players.find(p=>p.id!==prevGiver)?.id||players[0]?.id;
-  const u={...r,round:next,currentRound:{word:randWord(),giverId:nextGiver,clues:[],guesses:[],startedAt:Date.now(),solved:false}};
-  room=u;await store.set(rk,u);refreshGameUI();
+
+window.sendClue = async function() {
+  const inp = $("clue-input"); const clue = inp.value.trim(); if (!clue) return;
+  inp.value = "";
+  const fresh = await getRoom(); if (!fresh) return;
+  const clues = [...(fresh.currentRound?.clues || []), clue];
+  await update(ref(db, `rooms/${roomId}/currentRound`), { clues });
+};
+
+window.sendGuess = async function() {
+  const inp = $("guess-input"); const guess = inp.value.trim(); if (!guess) return;
+  inp.value = "";
+  const fresh = await getRoom(); if (!fresh) return;
+  const correct = guess.toLowerCase() === (fresh.currentRound?.word || "").toLowerCase();
+  const elapsed = Math.floor((Date.now() - fresh.currentRound.startedAt) / 1000);
+  const pts     = correct ? Math.max(1, Math.ceil(((ROUND_TIME - elapsed) / ROUND_TIME) * 10)) : 0;
+
+  const fb = $("g-feedback");
+  fb.textContent = correct ? "✅ Correct!" : "❌ Wrong guess!";
+  fb.classList.remove("hidden");
+  setTimeout(() => fb.classList.add("hidden"), 1500);
+
+  const guesses = [...(fresh.currentRound?.guesses || []), guess];
+  await update(ref(db, `rooms/${roomId}/currentRound`), { guesses, solved: correct });
+  await update(ref(db, `rooms/${roomId}/scores`), { [myId]: (fresh.scores?.[myId] || 0) + pts });
+
+  if (correct && fresh.hostId === myId) {
+    setTimeout(async () => advanceRound(await getRoom()), 2000);
+  }
+};
+
+async function advanceRound(r) {
+  const next = (r.round || 1) + 1;
+  if (next > r.maxRounds) { await patchRoom({ phase: "result" }); return; }
+  const players    = Object.values(r.players || {});
+  const nextGiver  = players.find(p => p.id !== r.currentRound?.giverId)?.id || players[0]?.id;
+  await patchRoom({
+    round: next,
+    currentRound: { word: randWord(), giverId: nextGiver, clues: [], guesses: [], startedAt: Date.now(), solved: false }
+  });
 }
 
-// ── Result ──
-function renderResult(){
-  const players=room.players||{};const scores=room.scores||{};
-  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
-  const winnerId=sorted[0]?.[0];
-  const isWinner=winnerId===myId;
-  document.getElementById("r-trophy").textContent=isWinner?"🏆":"💪";
-  document.getElementById("r-title").textContent=isWinner?"You won!":`${players[winnerId]?.name||"Partner"} won!`;
-  const sc=document.getElementById("r-scores");sc.innerHTML="";
-  sorted.forEach(([id,pts])=>{
-    const d=document.createElement("div");
-    d.className="final-score-row"+(id===myId?" mine":"");
-    d.innerHTML=`<span>${players[id]?.name||"Player"} ${id===winnerId?"👑":""}</span><span>${pts} pts</span>`;
+// ── Result ───────────────────────────────────────────────────────────────────
+function renderResult() {
+  const players = currentRoom?.players || {};
+  const scores  = currentRoom?.scores  || {};
+  const sorted  = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const winnerId = sorted[0]?.[0];
+  $("r-trophy").textContent = winnerId === myId ? "🏆" : "💪";
+  $("r-title").textContent  = winnerId === myId ? "You won!" : `${players[winnerId]?.name || "Partner"} won!`;
+  const sc = $("r-scores"); sc.innerHTML = "";
+  sorted.forEach(([id, pts]) => {
+    const d = document.createElement("div");
+    d.className = "final-score-row" + (id === myId ? " mine" : "");
+    d.innerHTML = `<span>${players[id]?.name || "Player"} ${id === winnerId ? "👑" : ""}</span><span>${pts} pts</span>`;
     sc.appendChild(d);
   });
 }
-async function handlePlayAgain(){
-  const fresh=await store.get(roomKey());if(!fresh)return;
-  const resetScores={};Object.keys(fresh.players).forEach(id=>resetScores[id]=0);
-  const u={...fresh,phase:"waiting",round:0,scores:resetScores,currentRound:null};
-  room=u;await store.set(roomKey(),u);renderWaiting();goScreen("waiting");startPoll();
-}
 
-// ── Leave ──
-async function handleLeave(){stopPoll();if(roomKey())await store.del(roomKey());room=null;showHomeMode(null);goScreen("home")}
+window.handlePlayAgain = async function() {
+  const resetScores = {};
+  Object.keys(currentRoom?.players || {}).forEach(id => resetScores[id] = 0);
+  await patchRoom({ phase: "waiting", round: 0, scores: resetScores, currentRound: null });
+};
+
+// ── Leave ────────────────────────────────────────────────────────────────────
+window.handleLeave = async function() {
+  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  stopTimer();
+  if (roomId) await remove(ref(db, `rooms/${roomId}`));
+  roomId = null; currentRoom = null;
+  showHomeMode(null);
+  goScreen("home");
+};
 </script>
 </body>
 </html>
