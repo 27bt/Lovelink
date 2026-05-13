@@ -182,8 +182,20 @@ const app = initializeApp({ databaseURL: "https://lovelink-8af5f-default-rtdb.fi
 const db  = getDatabase(app);
 
 // ── Constants ──────────────────────────────────────────────────────────────────
-const WORDS = ["Moonlight","Breakfast","Adventure","Penguin","Rainbow","Spaghetti","Sunflower","Thunderstorm","Chocolate","Elephant","Fireworks","Waterfall","Butterfly","Mountain","Cinema","Guitar","Library","Volcano","Treasure","Carnival","Lighthouse","Hammock","Crocodile","Snowflake","Saxophone","Dragonfly","Telescope","Pineapple","Hurricane","Cathedral","Umbrella","Dinosaur","Spaceship","Jellyfish","Cinnamon","Avalanche","Submarine","Constellation","Trampoline","Quicksand"];
-const ROUND_TIME = 60, MAX_ROUNDS = 5;
+const CATEGORIES = {
+  "🌍 Places":       ["Eiffel Tower","Amazon Rainforest","Great Wall","Sahara Desert","Grand Canyon","Niagara Falls","Machu Picchu","Antarctica","Venice","Tokyo","Stonehenge","Kilimanjaro","Dead Sea","Colosseum","Santorini","Sahara","Iceland","Maldives","Petra","Serengeti"],
+  "🐾 Animals":      ["Penguin","Elephant","Chameleon","Platypus","Flamingo","Narwhal","Axolotl","Meerkat","Capybara","Wolverine","Pangolin","Komodo Dragon","Snow Leopard","Mantis Shrimp","Firefly","Peacock","Jellyfish","Crocodile","Dragonfly","Hummingbird"],
+  "🍕 Food & Drink": ["Spaghetti","Sushi","Croissant","Guacamole","Tiramisu","Ramen","Churros","Baklava","Poutine","Kimchi","Bruschetta","Paella","Shawarma","Tapioca","Matcha","Espresso","Smoothie","Fondue","Dumpling","Gelato"],
+  "🎬 Movies & TV":  ["Inception","Titanic","Avengers","The Matrix","Jurassic Park","Star Wars","Harry Potter","The Lion King","Interstellar","Gladiator","Frozen","Batman","Shrek","Toy Story","Joker","Avatar","Parasite","Dune","The Notebook","Clueless"],
+  "🎵 Music":        ["Guitar","Saxophone","Drum Kit","Violin","Microphone","Turntable","Music Festival","Karaoke","Lullaby","Symphony","Bass Guitar","Trumpet","Piano","Choir","Beatbox","Vinyl Record","Album Cover","Music Video","Encore","Remix"],
+  "⚽ Sports":       ["Marathon","Skateboard","Surfing","Rock Climbing","Gymnastics","Archery","Fencing","Polo","Bobsled","Synchronized Swimming","Weightlifting","Triathlon","Bungee Jump","Paragliding","Snorkeling","Curling","Rowing","Parkour","Arm Wrestling","Dodgeball"],
+  "🔬 Science":      ["Black Hole","DNA","Volcano","Telescope","Microscope","Aurora Borealis","Earthquake","Tornado","Tsunami","Supernova","Eclipse","Glacier","Coral Reef","Photosynthesis","Asteroid","Avalanche","Quicksand","Constellation","Lightning","Tectonic Plates"],
+  "🏠 Everyday":     ["Umbrella","Hammock","Trampoline","Lighthouse","Carnival","Fireworks","Treasure","Library","Submarine","Spaceship","Hourglass","Compass","Lantern","Typewriter","Hot Air Balloon","Periscope","Windmill","Drawbridge","Catapult","Chandelier"],
+  "😂 Fun & Weird":  ["Unicorn","Zombie","Mermaid","Time Travel","Teleportation","Invisibility","Shrink Ray","Mind Reading","Clone","Parallel Universe","Dragon","Fairy Tale","Magic Carpet","Genie","Talking Parrot","Giant Squid","Haunted House","Quicksand","Mirage","Yeti"],
+  "💑 Romance":      ["Candlelight Dinner","First Kiss","Love Letter","Surprise Date","Stargazing","Slow Dance","Honeymoon","Proposal","Anniversary","Serenade","Bouquet","Valentine","Picnic","Sunset Walk","Couple Selfie","Secret Admirer","Long Distance","Jealousy","Butterflies","Heartbeat"],
+};
+const ALL_WORDS = Object.values(CATEGORIES).flat();
+const ROUND_TIME = 120, MAX_ROUNDS = 5;
 const SESSION_KEY = "lovelink_session";
 
 // ── State ──────────────────────────────────────────────────────────────────────
@@ -197,7 +209,8 @@ let myName = "", roomId = null, unsubscribe = null, timerInterval = null, curren
 const $        = id => document.getElementById(id);
 const show     = id => $(id).classList.remove("hidden");
 const hide     = id => $(id).classList.add("hidden");
-const randWord = ()  => WORDS[Math.floor(Math.random() * WORDS.length)];
+const randWord = ()  => { const w = ALL_WORDS[Math.floor(Math.random()*ALL_WORDS.length)]; return w; };
+const wordCategory = w => Object.entries(CATEGORIES).find(([,words])=>words.includes(w))?.[0] || "";
 const genCode  = ()  => Math.random().toString(36).slice(2,8).toUpperCase();
 const rRef     = ()  => ref(db, `rooms/${roomId}`);
 const getRoom  = async () => (await get(rRef())).val();
@@ -345,6 +358,14 @@ function refreshGameUI() {
   if (isGiver) {
     show("giver-panel"); hide("guesser-panel");
     $("g-word").textContent = r.word||"";
+    const cat = wordCategory(r.word||"");
+    let catEl = document.getElementById("g-category");
+    if (!catEl) { catEl=document.createElement("span"); catEl.id="g-category"; catEl.style.cssText="font-size:.75rem;color:#a78bca;letter-spacing:2px;text-transform:uppercase;margin-top:4px;display:block"; $("g-word").after(catEl); }
+    catEl.textContent = cat;
+    // also show guesser the category
+    let gcEl = document.getElementById("g-category-guesser");
+    if (!gcEl) { gcEl=document.createElement("p"); gcEl.id="g-category-guesser"; gcEl.style.cssText="font-size:.8rem;color:#a78bca;text-align:center"; $("g-word-length").after(gcEl); }
+    gcEl.textContent = cat ? `Category: ${cat}` : "";
     const ca=$("g-clues-given"); ca.innerHTML="";
     (r.clues||[]).forEach(c=>{ const s=document.createElement("span"); s.className="clue-bubble"; s.textContent=c; ca.appendChild(s); });
   } else {
