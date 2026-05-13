@@ -1,1 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lovelink</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d0a14;min-height:100vh;font-family:'DM Sans',sans-serif;color:#f0e6ff;display:flex;align-items:center;justify-content:center;padding:16px}
+#app{width:100%;max-width:440px;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.screen{width:100%;display:flex;flex-direction:column;align-items:center;gap:16px;animation:fadeIn .3s ease}
+.hidden{display:none!important}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes bounce{to{transform:translateY(-10px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
+h1{font-family:'Playfair Display',serif;font-size:3rem;color:#fff;letter-spacing:-1px;text-align:center}
+h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;text-align:center}
+h3{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:#a78bca;margin-bottom:6px;margin-top:14px}
+
+.hearts{font-size:1.1rem;letter-spacing:8px;color:#c084fc;animation:pulse 2s infinite;text-align:center}
+.tagline{color:#a78bca;font-size:1rem;text-align:center}
+
+input{width:100%;padding:12px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:#f0e6ff;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;transition:.2s}
+input:focus{border-color:#c084fc;background:rgba(192,132,252,.08)}
+input.code-inp{text-align:center;font-size:1.4rem;letter-spacing:6px;font-weight:700}
+
+.btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,#c084fc,#818cf8);color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,132,252,.4)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed}
+.btn-secondary{background:transparent;border:1.5px solid rgba(192,132,252,.5)!important;color:#c084fc}
+.btn-secondary:hover{background:rgba(192,132,252,.1)}
+.btn-ghost{background:none;border:none!important;color:#7c6a9e;font-size:.9rem;cursor:pointer;padding:8px;width:100%;font-family:'DM Sans',sans-serif}
+.btn-ghost:hover{color:#c084fc}
+.btn-send{padding:12px 20px;background:#c084fc;border:none;border-radius:12px;color:#fff;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:.2s;white-space:nowrap;font-size:.95rem}
+.btn-send:hover{background:#a855f7;transform:translateY(-1px)}
+.btn-send.guess-btn{background:#818cf8}
+.btn-send.guess-btn:hover{background:#6366f1}
+
+.btn-group{display:flex;flex-direction:column;gap:10px;width:100%}
+.form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;width:100%;display:flex;flex-direction:column;gap:4px}
+
+.error-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.3);border-radius:12px;padding:10px 20px;color:#ff6b6b;font-size:.85rem;z-index:99;transition:.3s}
+
+/* waiting */
+.room-code-box{background:rgba(192,132,252,.1);border:1.5px solid rgba(192,132,252,.3);border-radius:20px;padding:24px;width:100%;text-align:center}
+.label{font-size:.75rem;text-transform:uppercase;letter-spacing:2px;color:#a78bca;display:block;margin-bottom:4px}
+.big-code{font-family:'Playfair Display',serif;font-size:2.5rem;color:#c084fc;display:block;letter-spacing:8px;margin:8px 0}
+.hint{font-size:.8rem;color:#7c6a9e}
+.players-list{display:flex;flex-direction:column;gap:10px;width:100%}
+.player-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:12px;padding:12px 16px;font-size:.95rem}
+.dot{width:8px;height:8px;background:#7fff9e;border-radius:50%;display:inline-block;flex-shrink:0}
+.waiting-anim{color:#7c6a9e;font-size:.9rem;animation:pulse 1.5s infinite;text-align:center}
+
+/* game */
+.scoreboard{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:16px;padding:12px 16px;width:100%}
+.score-card{display:flex;flex-direction:column;align-items:center;gap:2px}
+.sname{font-size:.7rem;color:#a78bca;text-transform:uppercase;letter-spacing:1px}
+.spoints{font-size:1.8rem;font-family:'Playfair Display',serif;color:#c084fc}
+.round-info{font-size:.8rem;color:#7c6a9e;text-align:center}
+.timer-ring{width:70px;height:70px;border-radius:50%;border:4px solid #7fff9e;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:1.1rem;font-weight:700;color:#7fff9e;transition:border-color .5s,color .5s}
+.role-badge{border-radius:10px;padding:8px 14px;font-size:.85rem;font-weight:600;text-align:center;width:100%}
+.role-badge.giver{background:rgba(129,252,158,.1);color:#7fff9e;border:1px solid rgba(129,252,158,.2)}
+.role-badge.guesser{background:rgba(129,140,248,.1);color:#818cf8;border:1px solid rgba(129,140,248,.2)}
+.secret-word-box{background:rgba(192,132,252,.1);border:1.5px dashed rgba(192,132,252,.4);border-radius:16px;padding:16px;text-align:center;width:100%}
+.big-word{font-family:'Playfair Display',serif;font-size:2rem;color:#f0e6ff;display:block;margin-top:4px}
+.instruction{font-size:.85rem;color:#7c6a9e;text-align:center}
+.clues-area{display:flex;flex-wrap:wrap;gap:8px;min-height:40px;align-items:center;width:100%}
+.clue-bubble{background:rgba(192,132,252,.15);border:1px solid rgba(192,132,252,.3);border-radius:20px;padding:6px 14px;font-size:.85rem;color:#e0ccff}
+.clue-pill{background:rgba(129,140,248,.15);border:1px solid rgba(129,140,248,.3);border-radius:20px;padding:8px 16px;font-size:.9rem;color:#c7d2fe}
+.input-row{display:flex;gap:8px;align-items:center;width:100%}
+.input-row input{margin:0}
+.feedback{text-align:center;font-size:1.1rem;font-weight:600;padding:8px;border-radius:12px;background:rgba(255,255,255,.06);width:100%}
+.word-length{font-size:.8rem;color:#7c6a9e;text-align:center}
+.past-guesses{font-size:.8rem;color:#7c6a9e;display:flex;gap:6px;flex-wrap:wrap;align-items:center;width:100%}
+.guess-chip{padding:3px 10px;border-radius:20px;font-size:.8rem}
+.guess-chip.miss{background:rgba(255,107,107,.1);color:#ff6b6b;border:1px solid rgba(255,107,107,.2)}
+.guess-chip.hit{background:rgba(127,255,158,.1);color:#7fff9e;border:1px solid rgba(127,255,158,.2)}
+.panel{display:flex;flex-direction:column;gap:12px;width:100%}
+
+/* result */
+.trophy{font-size:4rem;animation:bounce .6s ease infinite alternate}
+.final-scores{width:100%;background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden}
+.final-score-row{display:flex;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.95rem}
+.final-score-row:last-child{border-bottom:none}
+.final-score-row.mine{background:rgba(192,132,252,.08);color:#e0ccff;font-weight:600}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- HOME -->
+  <div id="screen-home" class="screen">
+    <div class="hearts">♥ ♡ ♥</div>
+    <h1>Lovelink</h1>
+    <p class="tagline">A game for two, wherever you are</p>
+    <div class="btn-group" id="home-main-btns">
+      <button class="btn btn-primary" onclick="showHomeMode('create')">Create Room</button>
+      <button class="btn btn-secondary" onclick="showHomeMode('join')">Join Room</button>
+    </div>
+    <div id="home-create" class="form-card hidden">
+      <h3>Your Name</h3>
+      <input id="create-name" placeholder="e.g. Kusia" maxlength="16"/>
+      <button class="btn btn-primary" onclick="handleCreate()">Create & Get Room Code</button>
+      <button class="btn-ghost btn" onclick="showHomeMode(null)">← Back</button>
+    </div>
+    <div id="home-join" class="form-card hidden">
+      <h3>Your Name</h3>
+      <input id="join-name" placeholder="e.g. Your partner" maxlength="16"/>
+      <h3>Room Code</h3>
+      <input id="join-code" class="code-inp" placeholder="XXXXXX" maxlength="6" oninput="this.value=this.value.toUpperCase()"/>
+      <button class="btn btn-primary" onclick="handleJoin()">Join Room</button>
+      <button class="btn-ghost btn" onclick="showHomeMode(null)">← Back</button>
+    </div>
+  </div>
+
+  <!-- WAITING -->
+  <div id="screen-waiting" class="screen hidden">
+    <div class="room-code-box">
+      <span class="label">Room Code</span>
+      <span class="big-code" id="w-code"></span>
+      <span class="hint">Share this with your partner 💌</span>
+    </div>
+    <div class="players-list" id="w-players"></div>
+    <button class="btn btn-primary" id="w-start-btn" onclick="handleStart()" style="display:none;width:100%">Start Game ✨</button>
+    <button class="btn-ghost btn" onclick="handleLeave()">Leave Room</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="screen-game" class="screen hidden">
+    <div class="scoreboard">
+      <div class="score-card">
+        <span class="sname" id="g-my-name">You</span>
+        <span class="spoints" id="g-my-score">0</span>
+      </div>
+      <div class="round-info" id="g-round">Round 1/5</div>
+      <div class="score-card">
+        <span class="sname" id="g-partner-name">Partner</span>
+        <span class="spoints" id="g-partner-score">0</span>
+      </div>
+    </div>
+    <div class="timer-ring" id="g-timer">60s</div>
+    <!-- Giver Panel -->
+    <div class="panel" id="giver-panel">
+      <div class="role-badge giver">You are giving clues 🗣️</div>
+      <div class="secret-word-box">
+        <span class="label">Secret Word</span>
+        <span class="big-word" id="g-word"></span>
+      </div>
+      <p class="instruction">Give clues — do NOT say the word itself!</p>
+      <div class="clues-area" id="g-clues-given"></div>
+      <div class="input-row">
+        <input id="clue-input" placeholder="Type a clue…" maxlength="40" onkeydown="if(event.key==='Enter')sendClue()"/>
+        <button class="btn-send" onclick="sendClue()">Send</button>
+      </div>
+    </div>
+    <!-- Guesser Panel -->
+    <div class="panel hidden" id="guesser-panel">
+      <div class="role-badge guesser">You are guessing 🤔</div>
+      <p class="instruction" id="g-partner-clue-label">Partner is giving you clues…</p>
+      <div class="clues-area" id="g-clues-display"></div>
+      <div class="feedback hidden" id="g-feedback"></div>
+      <p class="word-length" id="g-word-length"></p>
+      <div class="input-row">
+        <input id="guess-input" placeholder="Type your guess…" maxlength="30" onkeydown="if(event.key==='Enter')sendGuess()"/>
+        <button class="btn-send guess-btn" onclick="sendGuess()">Guess!</button>
+      </div>
+      <div class="past-guesses" id="g-past-guesses"></div>
+    </div>
+    <button class="btn-ghost btn" style="width:auto;font-size:.8rem;margin-top:4px" onclick="handleLeave()">Leave Game</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="screen-result" class="screen hidden">
+    <div class="trophy" id="r-trophy">🏆</div>
+    <h2 id="r-title">You won!</h2>
+    <div class="final-scores" id="r-scores"></div>
+    <button class="btn btn-primary" onclick="handlePlayAgain()">Play Again 🔄</button>
+    <button class="btn-ghost btn" onclick="handleLeave()">Leave</button>
+  </div>
+
+</div>
+
+<div id="error-toast" class="error-toast hidden"></div>
+
+<script>
+// ── Storage (shared via window.storage or fallback to localStorage key-value) ──
+const store = {
+  async get(k){try{const r=await window.storage.get(k,true);return r?JSON.parse(r.value):null}catch{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch{return null}}},
+  async set(k,v){try{await window.storage.set(k,JSON.stringify(v),true)}catch{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}},
+  async del(k){try{await window.storage.delete(k,true)}catch{try{localStorage.removeItem(k)}catch{}}}
+};
+
+const WORDS=["Moonlight","Breakfast","Adventure","Penguin","Rainbow","Spaghetti","Sunflower","Thunderstorm","Chocolate","Elephant","Fireworks","Waterfall","Butterfly","Mountain","Cinema","Guitar","Library","Volcano","Treasure","Carnival","Lighthouse","Hammock","Crocodile","Snowflake","Saxophone","Dragonfly","Telescope","Pineapple","Hurricane","Cathedral"];
+const ROUND_TIME=60,MAX_ROUNDS=5;
+const myId="p_"+Math.random().toString(36).slice(2,10);
+let myName="",room=null,pollTimer=null,timerInterval=null;
+
+function roomKey(){return room?`lovelink_room_${room.id}`:null}
+function rw(){return room?.currentRound||{}}
+function randWord(){return WORDS[Math.floor(Math.random()*WORDS.length)]}
+function genCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+
+// ── UI helpers ──
+function show(id){document.getElementById(id).classList.remove("hidden")}
+function hide(id){document.getElementById(id).classList.add("hidden")}
+function goScreen(name){["home","waiting","game","result"].forEach(s=>s===name?show("screen-"+s):hide("screen-"+s))}
+function showError(msg){const t=document.getElementById("error-toast");t.textContent=msg;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),3000)}
+function showHomeMode(mode){
+  hide("home-main-btns");hide("home-create");hide("home-join");
+  if(!mode){show("home-main-btns")}
+  else if(mode==="create"){show("home-create")}
+  else{show("home-join")}
+}
+
+// ── Polling ──
+function startPoll(){
+  stopPoll();
+  pollTimer=setInterval(async()=>{
+    if(!roomKey())return;
+    const r=await store.get(roomKey());
+    if(!r)return;
+    const prevPhase=room?.phase;
+    room=r;
+    if(r.phase==="playing"&&prevPhase==="waiting")renderGame();
+    else if(r.phase==="result"&&prevPhase==="playing"){stopPoll();renderResult();goScreen("result")}
+    else if(r.phase==="waiting"&&prevPhase==="result"){renderWaiting();goScreen("waiting");startPoll()}
+    else if(r.phase==="playing")refreshGameUI();
+    // host auto-advance on timeout
+    if(r.phase==="playing"&&r.hostId===myId&&r.currentRound?.startedAt){
+      const elapsed=Math.floor((Date.now()-r.currentRound.startedAt)/1000);
+      if(elapsed>=ROUND_TIME)advanceRound(r);
+    }
+  },1200);
+}
+function stopPoll(){clearInterval(pollTimer);pollTimer=null;clearInterval(timerInterval);timerInterval=null}
+
+// ── Create / Join ──
+async function handleCreate(){
+  const n=document.getElementById("create-name").value.trim();
+  if(!n)return;
+  myName=n;
+  const id=genCode();
+  const key=`lovelink_room_${id}`;
+  room={id,hostId:myId,phase:"waiting",players:{[myId]:{id:myId,name:n}},scores:{[myId]:0},round:0,maxRounds:MAX_ROUNDS,currentRound:null};
+  await store.set(key,room);
+  renderWaiting();goScreen("waiting");startPoll();
+}
+async function handleJoin(){
+  const n=document.getElementById("join-name").value.trim();
+  const code=document.getElementById("join-code").value.trim();
+  if(!n||code.length!==6)return;
+  myName=n;
+  const key=`lovelink_room_${code}`;
+  const existing=await store.get(key);
+  if(!existing){showError("Room not found. Check the code.");return}
+  if(Object.keys(existing.players).length>=2){showError("Room is already full!");return}
+  room={...existing,players:{...existing.players,[myId]:{id:myId,name:n}},scores:{...existing.scores,[myId]:0}};
+  await store.set(key,room);
+  renderWaiting();goScreen("waiting");startPoll();
+}
+
+// ── Waiting ──
+function renderWaiting(){
+  document.getElementById("w-code").textContent=room.id;
+  const pl=Object.values(room.players||{});
+  const list=document.getElementById("w-players");
+  list.innerHTML="";
+  pl.forEach(p=>{
+    const d=document.createElement("div");d.className="player-chip";
+    d.innerHTML=`<span class="dot"></span> ${p.name} ${p.id===room.hostId?"👑":""}`;
+    list.appendChild(d);
+  });
+  if(pl.length<2){const w=document.createElement("div");w.className="waiting-anim";w.textContent="Waiting for partner to join…";list.appendChild(w)}
+  const sb=document.getElementById("w-start-btn");
+  sb.style.display=(pl.length>=2&&room.hostId===myId)?"block":"none";
+}
+async function handleStart(){
+  const updated={...room,phase:"playing",round:1,currentRound:{word:randWord(),giverId:myId,clues:[],guesses:[],startedAt:Date.now(),solved:false}};
+  room=updated;await store.set(roomKey(),updated);renderGame();
+}
+
+// ── Game ──
+function renderGame(){
+  goScreen("game");refreshGameUI();
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    if(!room?.currentRound?.startedAt)return;
+    const elapsed=Math.floor((Date.now()-room.currentRound.startedAt)/1000);
+    const left=Math.max(0,ROUND_TIME-elapsed);
+    const el=document.getElementById("g-timer");
+    el.textContent=left+"s";
+    if(left>30){el.style.borderColor="#7fff9e";el.style.color="#7fff9e"}
+    else if(left>10){el.style.borderColor="#ffd97d";el.style.color="#ffd97d"}
+    else{el.style.borderColor="#ff6b6b";el.style.color="#ff6b6b"}
+  },500);
+}
+function refreshGameUI(){
+  const r=rw();const isGiver=r.giverId===myId;
+  const players=room.players||{};
+  const scores=room.scores||{};
+  const partnerEntry=Object.values(players).find(p=>p.id!==myId);
+  document.getElementById("g-my-name").textContent=myName;
+  document.getElementById("g-partner-name").textContent=partnerEntry?.name||"Partner";
+  document.getElementById("g-my-score").textContent=scores[myId]||0;
+  document.getElementById("g-partner-score").textContent=scores[partnerEntry?.id]||0;
+  document.getElementById("g-round").textContent=`Round ${room.round||1}/${room.maxRounds||5}`;
+  if(isGiver){
+    show("giver-panel");hide("guesser-panel");
+    document.getElementById("g-word").textContent=r.word||"";
+    const ca=document.getElementById("g-clues-given");ca.innerHTML="";
+    (r.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-bubble";s.textContent=c;ca.appendChild(s)});
+  } else {
+    hide("giver-panel");show("guesser-panel");
+    document.getElementById("g-partner-clue-label").textContent=`${partnerEntry?.name||"Partner"} is giving you clues…`;
+    document.getElementById("g-word-length").textContent=`Word has ${(r.word||"").length} letters`;
+    const cd=document.getElementById("g-clues-display");cd.innerHTML="";
+    if((r.clues||[]).length===0){const s=document.createElement("span");s.className="waiting-anim";s.textContent="Waiting for first clue…";cd.appendChild(s)}
+    else (r.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-pill";s.textContent=c;cd.appendChild(s)});
+    const pg=document.getElementById("g-past-guesses");pg.innerHTML="";
+    if((r.guesses||[]).length>0){
+      const lbl=document.createElement("span");lbl.textContent="Previous: ";pg.appendChild(lbl);
+      (r.guesses||[]).forEach(g=>{const s=document.createElement("span");s.className="guess-chip "+(g.toLowerCase()===(r.word||"").toLowerCase()?"hit":"miss");s.textContent=g;pg.appendChild(s)});
+    }
+  }
+}
+async function sendClue(){
+  const inp=document.getElementById("clue-input");const clue=inp.value.trim();if(!clue)return;
+  inp.value="";
+  const fresh=await store.get(roomKey());if(!fresh)return;
+  const updated={...fresh,currentRound:{...fresh.currentRound,clues:[...(fresh.currentRound.clues||[]),clue]}};
+  room=updated;await store.set(roomKey(),updated);refreshGameUI();
+}
+async function sendGuess(){
+  const inp=document.getElementById("guess-input");const guess=inp.value.trim();if(!guess)return;
+  inp.value="";
+  const fresh=await store.get(roomKey());if(!fresh)return;
+  const correct=guess.toLowerCase()===(fresh.currentRound?.word||"").toLowerCase();
+  const elapsed=Math.floor((Date.now()-fresh.currentRound.startedAt)/1000);
+  const pts=correct?Math.max(1,Math.ceil(((ROUND_TIME-elapsed)/ROUND_TIME)*10)):0;
+  const fb=document.getElementById("g-feedback");
+  fb.textContent=correct?"✅ Correct!":"❌ Wrong guess!";fb.classList.remove("hidden");
+  setTimeout(()=>fb.classList.add("hidden"),1500);
+  const updated={...fresh,scores:{...fresh.scores,[myId]:(fresh.scores[myId]||0)+pts},currentRound:{...fresh.currentRound,guesses:[...(fresh.currentRound.guesses||[]),guess],solved:correct}};
+  room=updated;await store.set(roomKey(),updated);refreshGameUI();
+  if(correct&&fresh.hostId===myId)setTimeout(()=>advanceRound(updated),2000);
+}
+async function advanceRound(r){
+  const next=(r.round||1)+1;
+  const rk=`lovelink_room_${r.id}`;
+  if(next>r.maxRounds){const u={...r,phase:"result"};room=u;await store.set(rk,u);stopPoll();renderResult();goScreen("result");return}
+  const players=Object.values(r.players||{});
+  const prevGiver=r.currentRound?.giverId;
+  const nextGiver=players.find(p=>p.id!==prevGiver)?.id||players[0]?.id;
+  const u={...r,round:next,currentRound:{word:randWord(),giverId:nextGiver,clues:[],guesses:[],startedAt:Date.now(),solved:false}};
+  room=u;await store.set(rk,u);refreshGameUI();
+}
+
+// ── Result ──
+function renderResult(){
+  const players=room.players||{};const scores=room.scores||{};
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const winnerId=sorted[0]?.[0];
+  const isWinner=winnerId===myId;
+  document.getElementById("r-trophy").textContent=isWinner?"🏆":"💪";
+  document.getElementById("r-title").textContent=isWinner?"You won!":`${players[winnerId]?.name||"Partner"} won!`;
+  const sc=document.getElementById("r-scores");sc.innerHTML="";
+  sorted.forEach(([id,pts])=>{
+    const d=document.createElement("div");
+    d.className="final-score-row"+(id===myId?" mine":"");
+    d.innerHTML=`<span>${players[id]?.name||"Player"} ${id===winnerId?"👑":""}</span><span>${pts} pts</span>`;
+    sc.appendChild(d);
+  });
+}
+async function handlePlayAgain(){
+  const fresh=await store.get(roomKey());if(!fresh)return;
+  const resetScores={};Object.keys(fresh.players).forEach(id=>resetScores[id]=0);
+  const u={...fresh,phase:"waiting",round:0,scores:resetScores,currentRound:null};
+  room=u;await store.set(roomKey(),u);renderWaiting();goScreen("waiting");startPoll();
+}
+
+// ── Leave ──
+async function handleLeave(){stopPoll();if(roomKey())await store.del(roomKey());room=null;showHomeMode(null);goScreen("home")}
+</script>
+</body>
+</html>
