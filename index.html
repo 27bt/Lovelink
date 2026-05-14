@@ -2,135 +2,117 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Lovelink"/>
+<meta name="theme-color" content="#07050f"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23a855f7' width='180' height='180'/><text x='50%' y='50%' font-size='80' text-anchor='middle' dominant-baseline='central' fill='white'>💜</text></svg>"/>
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23a855f7' width='180' height='180'/><text x='50%' y='50%' font-size='80' text-anchor='middle' dominant-baseline='central' fill='white'>💜</text></svg>"/>
 <title>Lovelink 💜</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#07050f;--s1:#0f0c1a;--s2:#161228;--purple:#a855f7;--purple2:#7c3aed;--pink:#f472b6;--green:#4ade80;--yellow:#fbbf24;--red:#f87171;--muted:#7a6a96;--muted2:#a08cc0;--text:#f0e8ff;--border:rgba(255,255,255,.08)}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100%;background:var(--bg);font-family:'Inter',sans-serif;color:var(--text)}
-body{display:flex;align-items:flex-start;justify-content:center;padding:20px 16px 40px}
-#app{width:100%;max-width:420px}
-.screen{display:flex;flex-direction:column;gap:14px;animation:fadeUp .3s ease}
+:root{--bg:#07050f;--s1:#0f0c1a;--purple:#a855f7;--muted:#7a6a96;--text:#f0e8ff;--border:rgba(255,255,255,.08);--green:#4ade80;--red:#f87171}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;min-height:100%;background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overflow-x:hidden}
+body{display:flex;align-items:flex-start;justify-content:center;padding:12px 16px 20px;min-height:100dvh}
+#app{width:100%;max-width:420px;animation:fadeIn .3s ease}
+.screen{display:flex;flex-direction:column;gap:12px;animation:slideUp .35s cubic-bezier(.22,1,.36,1)}
 .hidden{display:none!important}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
-.anim-pulse{animation:pulse 2.5s infinite}
-.anim-float{animation:float 3s ease-in-out infinite}
-.anim-pop{animation:pop .2s ease}
 .shimmer{background:linear-gradient(90deg,#a855f7,#f472b6,#a855f7);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
-/* glass */
-.glass{background:rgba(255,255,255,.03);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:18px}
-/* inputs */
-input{width:100%;padding:13px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;color:var(--text);font-size:.95rem;font-family:'Inter',sans-serif;outline:none;transition:.2s}
+input{width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:var(--text);font-size:16px;font-family:'Inter',sans-serif;outline:none;transition:.2s;-webkit-appearance:none;appearance:none}
 input:focus{border-color:var(--purple);background:rgba(168,85,247,.07)}
 input::placeholder{color:rgba(160,140,192,.4)}
-.code-input{text-align:center;font-size:1.5rem;letter-spacing:8px;font-weight:700;color:var(--purple)}
-/* buttons */
-.btn{display:block;width:100%;padding:14px;border:none;border-radius:16px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.18s;text-align:center}
-.btn:active{transform:scale(.97)}
-.btn-primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;box-shadow:0 4px 20px rgba(168,85,247,.25)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(168,85,247,.4)}
+.code-input{text-align:center;font-size:1.3rem;letter-spacing:6px;font-weight:700;color:var(--purple)}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:14px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;-webkit-appearance:none;appearance:none;text-align:center}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:linear-gradient(135deg,var(--purple),#7c3aed);color:#fff;box-shadow:0 4px 16px rgba(168,85,247,.25)}
 .btn-outline{background:transparent;border:1.5px solid rgba(168,85,247,.35);color:var(--purple)}
-.btn-outline:hover{background:rgba(168,85,247,.08)}
-.btn-ghost{background:none;border:none;color:var(--muted);font-size:.85rem;cursor:pointer;padding:8px;width:100%;text-align:center;font-family:'Inter',sans-serif}
-.btn-ghost:hover{color:var(--muted2)}
-.btn-skip{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:var(--purple);border-radius:14px;padding:11px;font-size:.88rem;font-weight:600;cursor:pointer;width:100%;font-family:'Inter',sans-serif;transition:.18s}
-.btn-skip:hover{background:rgba(168,85,247,.14)}
-.send-btn{padding:12px 18px;border:none;border-radius:12px;color:#fff;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.18s;white-space:nowrap;font-size:.9rem;flex-shrink:0}
-.send-clue{background:linear-gradient(135deg,var(--purple),var(--purple2))}
-.send-guess{background:linear-gradient(135deg,#60a5fa,var(--purple2))}
-.send-btn:hover{transform:translateY(-1px)}
-/* label */
-.lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:3px;color:rgba(168,85,247,.6);margin-bottom:6px}
-/* card */
-.card{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:22px}
-/* code box */
-.code-box{background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(244,114,182,.07));border:1px solid rgba(168,85,247,.2);border-radius:20px;padding:24px;text-align:center}
-.big-code{font-family:'Playfair Display',serif;font-size:2.6rem;letter-spacing:10px;color:var(--purple);display:block;margin:6px 0;text-shadow:0 0 30px rgba(168,85,247,.4)}
-/* player chip */
-.player-chip{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:12px 16px}
-.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0}
-/* scoreboard */
-.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:14px 16px}
-.score-side{display:flex;flex-direction:column}
-.score-side.right{align-items:flex-end}
-.s-name{font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.s-pts{font-family:'Playfair Display',serif;font-size:2rem;color:var(--purple);line-height:1.1}
-.s-div{width:1px;height:40px;background:var(--border)}
-.round-lbl{font-size:.75rem;color:var(--muted);text-align:center}
-/* timer */
-.timer-wrap{display:flex;justify-content:center}
-.timer-ring{position:relative;width:76px;height:76px}
+.btn-outline:active{background:rgba(168,85,247,.08)}
+.btn-ghost{background:none;border:none;color:var(--muted);font-size:.85rem;cursor:pointer;padding:6px;width:100%;font-family:'Inter',sans-serif}
+.btn-ghost:active{color:#a08cc0}
+.btn-skip{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);color:var(--purple);border-radius:12px;padding:10px;font-size:.85rem;font-weight:600;cursor:pointer;width:100%;font-family:'Inter',sans-serif;transition:.15s;-webkit-appearance:none}
+.btn-skip:active{background:rgba(168,85,247,.14)}
+.send-btn{padding:11px 16px;border:none;border-radius:11px;color:#fff;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:.15s;white-space:nowrap;font-size:.88rem;flex-shrink:0;-webkit-appearance:none}
+.send-clue{background:linear-gradient(135deg,var(--purple),#7c3aed)}
+.send-guess{background:linear-gradient(135deg,#60a5fa,#7c3aed)}
+.send-btn:active{transform:scale(.95)}
+.lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:2.5px;color:rgba(168,85,247,.6);margin-bottom:5px;font-weight:600}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:18px}
+.glass{background:rgba(255,255,255,.03);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:16px;padding:18px}
+.code-box{background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(244,114,182,.07));border:1px solid rgba(168,85,247,.2);border-radius:18px;padding:20px;text-align:center}
+.big-code{font-family:'Playfair Display',serif;font-size:2.3rem;letter-spacing:8px;color:var(--purple);display:block;margin:4px 0;text-shadow:0 0 25px rgba(168,85,247,.4);font-weight:700}
+.player-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:11px 14px}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),#7c3aed);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.scoreboard{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:12px 14px}
+.s-name{font-size:.6rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);max-width:85px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.s-pts{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--purple);line-height:1}
+.s-div{width:1px;height:35px;background:var(--border)}
+.round-lbl{font-size:.7rem;color:var(--muted);text-align:center}
+.timer-ring{position:relative;width:68px;height:68px}
 .timer-ring svg{position:absolute;top:0;left:0}
-.timer-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700}
-/* role chip */
-.role-chip{text-align:center;padding:9px 16px;border-radius:30px;font-size:.82rem;font-weight:600}
-.role-giver{background:rgba(74,222,128,.07);color:var(--green);border:1px solid rgba(74,222,128,.15)}
+.timer-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:700}
+.role-chip{text-align:center;padding:8px 14px;border-radius:26px;font-size:.78rem;font-weight:600;width:100%}
+.role-giver{background:rgba(74,222,128,.07);color:#4ade80;border:1px solid rgba(74,222,128,.15)}
 .role-guesser{background:rgba(96,165,250,.07);color:#93c5fd;border:1px solid rgba(96,165,250,.15)}
-/* secret word */
-.secret-box{background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(124,106,255,.07));border:1.5px dashed rgba(168,85,247,.3);border-radius:18px;padding:20px;text-align:center}
-.cat-tag{display:inline-block;padding:4px 12px;background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.2);border-radius:20px;font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--purple);margin-bottom:10px}
-.secret-word{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--text);display:block}
-/* cat hint */
-.cat-hint{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.15);border-radius:14px}
-.cat-hint span{font-size:.85rem;color:var(--muted2)}
+.secret-box{background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(124,106,255,.07));border:1.5px dashed rgba(168,85,247,.3);border-radius:16px;padding:18px;text-align:center}
+.cat-tag{display:inline-block;padding:3px 10px;background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.2);border-radius:18px;font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);margin-bottom:8px}
+.secret-word{font-family:'Playfair Display',serif;font-size:2rem;color:var(--text);display:block;font-weight:700}
+.cat-hint{display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.15);border-radius:12px;font-size:.8rem}
 .cat-hint strong{color:var(--purple)}
-/* clues */
-.clues-area{display:flex;flex-wrap:wrap;gap:7px;min-height:36px;align-items:center}
-.clue-sent{padding:7px 14px;border-radius:20px;font-size:.82rem;background:rgba(168,85,247,.14);border:1px solid rgba(168,85,247,.22);color:#d8b4fe}
-.clue-recv{padding:7px 14px;border-radius:20px;font-size:.82rem;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.18);color:#93c5fd}
-.waiting-clue{color:var(--muted);font-size:.85rem;animation:pulse 1.8s infinite}
-/* clue box */
-.clue-box{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:12px;min-height:50px;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
-/* input row */
-.input-row{display:flex;gap:8px;align-items:center}
+.clue-box{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:10px;min-height:45px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.clue-sent{padding:6px 11px;border-radius:18px;font-size:.78rem;background:rgba(168,85,247,.14);border:1px solid rgba(168,85,247,.22);color:#d8b4fe;animation:pop .2s ease}
+.clue-recv{padding:6px 11px;border-radius:18px;font-size:.78rem;background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.18);color:#93c5fd;animation:pop .2s ease}
+.waiting-clue{color:var(--muted);font-size:.8rem;animation:pulse 1.8s infinite}
+.input-row{display:flex;gap:7px;align-items:center}
 .input-row input{margin:0;flex:1}
-/* feedback */
-.feedback{text-align:center;padding:10px;border-radius:14px;font-size:.95rem;font-weight:600;animation:pop .25s ease}
+.feedback{text-align:center;padding:9px;border-radius:12px;font-size:.9rem;font-weight:600;animation:pop .2s ease}
 .fb-ok{background:rgba(74,222,128,.09);color:var(--green);border:1px solid rgba(74,222,128,.18)}
 .fb-no{background:rgba(248,113,113,.07);color:var(--red);border:1px solid rgba(248,113,113,.14)}
-/* past guesses */
-.guesses-row{display:flex;flex-wrap:wrap;gap:6px}
-.g-hit{padding:4px 11px;border-radius:20px;font-size:.78rem;background:rgba(74,222,128,.09);color:var(--green);border:1px solid rgba(74,222,128,.18)}
-.g-miss{padding:4px 11px;border-radius:20px;font-size:.78rem;background:rgba(248,113,113,.07);color:rgba(248,113,113,.7);border:1px solid rgba(248,113,113,.12)}
-/* result */
-.score-row{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border)}
+.guesses-row{display:flex;flex-wrap:wrap;gap:5px}
+.g-hit{padding:3px 9px;border-radius:18px;font-size:.7rem;background:rgba(74,222,128,.09);color:var(--green);border:1px solid rgba(74,222,128,.18)}
+.g-miss{padding:3px 9px;border-radius:18px;font-size:.7rem;background:rgba(248,113,113,.07);color:rgba(248,113,113,.7);border:1px solid rgba(248,113,113,.12)}
+.score-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border)}
 .score-row:last-child{border:none}
 .score-row.mine{background:rgba(168,85,247,.07)}
-.r-pts{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--purple)}
-/* toast */
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.25);backdrop-filter:blur(10px);border-radius:14px;padding:10px 20px;color:var(--red);font-size:.85rem;z-index:99;max-width:88vw;text-align:center}
+.r-pts{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--purple)}
+.toast{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.25);backdrop-filter:blur(10px);border-radius:12px;padding:9px 16px;color:var(--red);font-size:.8rem;z-index:99;max-width:90vw;text-align:center;animation:slideUp .3s ease}
+.hero{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 0 6px}
+.anim-pulse{animation:pulse 2.5s infinite}
+.anim-float{animation:pulse 3s ease-in-out infinite;font-size:4.5rem}
+@media(max-height:600px){body{padding:8px 16px 16px;}.hero{padding:12px 0 4px}input{padding:10px 12px;}.btn{padding:11px}.s-pts{font-size:1.5rem}.secret-word{font-size:1.6rem}}
 </style>
 </head>
 <body>
 <div id="app">
   <!-- HOME -->
   <div id="s-home" class="screen">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 0 10px">
-      <div class="anim-pulse" style="font-size:1.2rem;letter-spacing:10px;background:linear-gradient(90deg,#a855f7,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">♥ ♡ ♥</div>
-      <h1 class="shimmer" style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700">Lovelink</h1>
-      <p style="color:rgba(160,140,192,.6);font-size:.9rem;font-style:italic">A guessing game for two 💌</p>
+    <div class="hero">
+      <div class="anim-pulse" style="font-size:1rem;letter-spacing:8px;background:linear-gradient(90deg,#a855f7,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">♥ ♡ ♥</div>
+      <h1 class="shimmer" style="font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700">Lovelink</h1>
+      <p style="color:rgba(160,140,192,.6);font-size:.85rem;font-style:italic">A guessing game for two 💌</p>
     </div>
     <div id="home-btns">
-      <button class="btn btn-primary" onclick="showMode('create')" style="margin-bottom:10px">✨ Create Room</button>
+      <button class="btn btn-primary" onclick="showMode('create')" style="margin-bottom:8px">✨ Create Room</button>
       <button class="btn btn-outline" onclick="showMode('join')">🔗 Join Room</button>
     </div>
     <div id="home-create" class="card hidden">
       <div class="lbl">Your Name</div>
       <input id="create-name" placeholder="Enter your name" maxlength="16" onkeydown="if(event.key==='Enter')doCreate()"/>
-      <button class="btn btn-primary" onclick="doCreate()" style="margin-top:12px">Get Room Code →</button>
+      <button class="btn btn-primary" onclick="doCreate()" style="margin-top:10px">Get Room Code →</button>
       <button class="btn-ghost" onclick="showMode(null)">← Back</button>
     </div>
     <div id="home-join" class="card hidden">
       <div class="lbl">Your Name</div>
-      <input id="join-name" placeholder="Enter your name" maxlength="16" style="margin-bottom:12px"/>
+      <input id="join-name" placeholder="Enter your name" maxlength="16" style="margin-bottom:10px"/>
       <div class="lbl">Room Code</div>
       <input id="join-code" class="code-input" placeholder="XXXXXX" maxlength="6" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doJoin()"/>
-      <button class="btn btn-primary" onclick="doJoin()" style="margin-top:12px">Join →</button>
+      <button class="btn btn-primary" onclick="doJoin()" style="margin-top:10px">Join →</button>
       <button class="btn-ghost" onclick="showMode(null)">← Back</button>
     </div>
   </div>
@@ -140,7 +122,7 @@ input::placeholder{color:rgba(160,140,192,.4)}
     <div class="code-box">
       <div class="lbl">Room Code</div>
       <span class="big-code" id="w-code"></span>
-      <div style="font-size:.8rem;color:rgba(168,85,247,.45)">Share this with your partner 💜</div>
+      <div style="font-size:.75rem;color:rgba(168,85,247,.45)">Share with your partner 💜</div>
     </div>
     <div id="w-players"></div>
     <button class="btn btn-primary hidden" id="w-start" onclick="doStart()">Start Game ✨</button>
@@ -150,70 +132,55 @@ input::placeholder{color:rgba(160,140,192,.4)}
   <!-- GAME -->
   <div id="s-game" class="screen hidden">
     <div class="scoreboard">
-      <div class="score-side">
-        <div class="s-name" id="g-myname"></div>
-        <div class="s-pts" id="g-myscore">0</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
-        <div class="s-div"></div>
-        <div class="round-lbl" id="g-round">1/6</div>
-        <div class="s-div"></div>
-      </div>
-      <div class="score-side right">
-        <div class="s-name" id="g-pname"></div>
-        <div class="s-pts" id="g-pscore">0</div>
-      </div>
+      <div><div class="s-name" id="g-myname"></div><div class="s-pts" id="g-myscore">0</div></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:2px"><div class="s-div"></div><div class="round-lbl" id="g-round">1/6</div><div class="s-div"></div></div>
+      <div style="text-align:right"><div class="s-name" id="g-pname"></div><div class="s-pts" id="g-pscore">0</div></div>
     </div>
-    <!-- timer -->
-    <div class="timer-wrap">
+    <div style="display:flex;justify-content:center">
       <div class="timer-ring">
-        <svg width="76" height="76" viewBox="0 0 76 76" style="transform:rotate(-90deg)">
+        <svg width="68" height="68" viewBox="0 0 76 76" style="transform:rotate(-90deg)">
           <circle cx="38" cy="38" r="34" fill="none" stroke-width="4" stroke="rgba(255,255,255,.06)" stroke-dasharray="213.6"/>
           <circle id="t-arc" cx="38" cy="38" r="34" fill="none" stroke-width="4" stroke="#4ade80" stroke-dasharray="213.6" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset .4s,stroke .5s"/>
         </svg>
         <div class="timer-inner" id="t-txt" style="color:#4ade80">2:00</div>
       </div>
     </div>
-    <!-- giver panel -->
     <div id="p-giver">
-      <div class="role-chip role-giver" style="margin-bottom:12px">🗣️ You are giving clues this round</div>
-      <div class="secret-box" style="margin-bottom:12px">
+      <div class="role-chip role-giver">🗣️ You are giving clues</div>
+      <div class="secret-box" style="margin:10px 0">
         <div class="cat-tag" id="g-cat-giver"></div>
         <span class="secret-word" id="g-word"></span>
       </div>
-      <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-bottom:10px">Describe it — don't say it, spell it, or rhyme it!</p>
-      <div class="clue-box" id="g-clues-sent" style="margin-bottom:10px"></div>
-      <div class="input-row" style="margin-bottom:10px">
-        <input id="clue-inp" placeholder="Type a clue and press Enter…" maxlength="50" onkeydown="if(event.key==='Enter')doClue()"/>
+      <p style="text-align:center;font-size:.75rem;color:var(--muted);margin-bottom:8px">Describe it — don't say it, spell it, or rhyme it!</p>
+      <div class="clue-box" id="g-clues-sent"></div>
+      <div class="input-row" style="margin:8px 0">
+        <input id="clue-inp" placeholder="Clue…" maxlength="50" onkeydown="if(event.key==='Enter')doClue()"/>
         <button class="send-btn send-clue" onclick="doClue()">Send</button>
       </div>
-      <button class="btn-skip" id="skip-btn" onclick="doNext()">Skip / Next Round →</button>
+      <button class="btn-skip" id="skip-btn" onclick="doNext()">Skip / Next Round</button>
     </div>
-    <!-- guesser panel -->
     <div id="p-guesser" class="hidden">
-      <div class="role-chip role-guesser" style="margin-bottom:12px">🤔 Your turn to guess!</div>
-      <div class="cat-hint" style="margin-bottom:12px">
-        <span>Category:</span><strong id="g-cat-guesser">—</strong>
-      </div>
-      <div class="clue-box" id="g-clues-recv" style="margin-bottom:10px"></div>
-      <div id="g-feedback" class="hidden" style="margin-bottom:10px"></div>
-      <div class="input-row" style="margin-bottom:10px">
+      <div class="role-chip role-guesser">🤔 Your turn to guess!</div>
+      <div class="cat-hint"><span>Category:</span><strong id="g-cat-guesser">—</strong></div>
+      <div class="clue-box" id="g-clues-recv" style="margin:8px 0"></div>
+      <div id="g-feedback" class="hidden" style="margin:8px 0"></div>
+      <div class="input-row" style="margin-bottom:8px">
         <input id="guess-inp" placeholder="What's the word?" maxlength="40" onkeydown="if(event.key==='Enter')doGuess()"/>
-        <button class="send-btn send-guess" onclick="doGuess()">Guess!</button>
+        <button class="send-btn send-guess" onclick="doGuess()">Guess</button>
       </div>
       <div class="guesses-row" id="g-past"></div>
     </div>
-    <button class="btn-ghost" style="margin-top:4px;font-size:.75rem" onclick="doLeave()">Leave Game</button>
+    <button class="btn-ghost" style="margin-top:2px;font-size:.72rem" onclick="doLeave()">Leave Game</button>
   </div>
 
   <!-- RESULT -->
   <div id="s-result" class="screen hidden">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 0">
-      <div id="r-trophy" class="anim-float" style="font-size:5rem">🏆</div>
-      <h2 class="shimmer" id="r-title" style="font-family:'Playfair Display',serif;font-size:2rem;text-align:center"></h2>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 0">
+      <div id="r-trophy" class="anim-float">🏆</div>
+      <h2 class="shimmer" id="r-title" style="font-family:'Playfair Display',serif;font-size:1.8rem;text-align:center"></h2>
     </div>
-    <div id="r-scores" style="border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--s1)"></div>
-    <button class="btn btn-primary" onclick="doPlayAgain()" style="margin-top:4px">Play Again 🔄</button>
+    <div id="r-scores" style="border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--s1)"></div>
+    <button class="btn btn-primary" onclick="doPlayAgain()" style="margin-top:2px">Play Again 🔄</button>
     <button class="btn-ghost" onclick="doLeave()">Leave</button>
   </div>
 </div>
@@ -222,7 +189,6 @@ input::placeholder{color:rgba(160,140,192,.4)}
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getDatabase,ref,set,get,onValue,update,remove}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
 const app=initializeApp({databaseURL:"https://lovelink-8af5f-default-rtdb.firebaseio.com"},"ll");
 const db=getDatabase(app);
 const rRef=p=>ref(db,p);
@@ -231,268 +197,68 @@ const fbSet=(p,v)=>set(rRef(p),v);
 const fbUpd=(p,v)=>update(rRef(p),v);
 const fbDel=p=>remove(rRef(p));
 const fbOn=(p,cb)=>onValue(rRef(p),s=>cb(s.val()));
-
-// ── Word bank ────────────────────────────────────────────────────────────────
-const WB={
-"🐾 Animals":["Dog","Cat","Lion","Tiger","Elephant","Giraffe","Zebra","Monkey","Snake","Frog","Eagle","Parrot","Penguin","Dolphin","Whale","Shark","Crocodile","Turtle","Rabbit","Goat","Sheep","Cow","Pig","Horse","Donkey","Camel","Buffalo","Gorilla","Chimpanzee","Baboon","Hyena","Leopard","Cheetah","Rhino","Hippo","Flamingo","Peacock","Ostrich","Pelican","Stork","Heron","Vulture","Hawk","Owl","Bat","Squirrel","Rat","Mouse","Hedgehog","Porcupine","Antelope","Gazelle","Wildebeest","Warthog","Meerkat","Mongoose","Chameleon","Gecko","Lizard","Iguana","Tortoise","Crab","Lobster","Shrimp","Octopus","Jellyfish","Starfish","Seahorse","Salmon","Catfish","Tilapia","Sardine","Tuna","Firefly","Butterfly","Moth","Bee","Wasp","Ant","Termite","Cricket","Grasshopper","Scorpion","Spider","Dragonfly","Ladybug","Beetle","Centipede","Snail","Earthworm","Pigeon","Sparrow","Crow","Rooster","Hen","Duck","Goose","Turkey","Canary","Panda","Koala","Sloth"],
-"🍕 Food & Drinks":["Rice","Beans","Plantain","Fufu","Egusi","Ndolé","Koki","Achu","Puff-puff","Pepper soup","Jollof rice","Fried rice","Couscous","Cassava","Yam","Cocoyam","Sweet potato","Corn","Bread","Pasta","Spaghetti","Noodles","Pizza","Hamburger","Sandwich","Omelette","Chicken","Fish","Beef","Sausage","Milk","Yoghurt","Cheese","Butter","Ice cream","Cake","Biscuit","Cookie","Doughnut","Chocolate","Candy","Popcorn","Chips","Groundnuts","Cashew","Coconut","Mango","Banana","Orange","Pineapple","Watermelon","Avocado","Ketchup","Mayonnaise","Honey","Coffee","Tea","Cocoa","Juice","Soda","Smoothie","Suya","Kebab","Grilled fish","Roasted corn","Chin chin","Akara","Waffle","Pancake","Porridge","Oatmeal","Salad","Soup","Stew","Curry","Croissant","Beignets","Shawarma","Sushi","Ramen","Tacos","Burger","Hot dog","Milkshake","Lemonade","Ginger beer","Palm wine","Groundnut soup"],
-"🎬 Movies & TV":["Action movie","Comedy","Horror","Romance","Animation","Documentary","Drama","Science fiction","Fantasy","Musical","Crime","Mystery","Superhero","Cartoon","Reality show","Game show","Soap opera","Star Wars","Titanic","Avengers","Lion King","Frozen","Spider-Man","Batman","Superman","Fast and Furious","Jurassic Park","Harry Potter","The Matrix","Inception","Joker","Black Panther","Shrek","Toy Story","Finding Nemo","Monsters Inc","Ice Age","Madagascar","Kung Fu Panda","Moana","Avatar","Interstellar","Gladiator","Troy","Braveheart","Forrest Gump","Home Alone","Die Hard","Terminator","Transformers","Iron Man","Thor","Wonder Woman","X-Men","Deadpool","Naruto","Dragon Ball","One Piece","Attack on Titan","Wakanda","Nollywood","Hollywood","Bollywood","Netflix","Cinema","Sequel","Trailer","Premiere","Blockbuster","Oscar","Director","Actor","Actress"],
-"✈️ Travel & Countries":["Cameroon","Nigeria","Ghana","Kenya","South Africa","Egypt","Morocco","Ethiopia","Tanzania","Uganda","Senegal","Rwanda","Congo","Gabon","France","UK","Germany","Italy","Spain","USA","Canada","Brazil","China","Japan","India","Dubai","Turkey","Greece","Airport","Passport","Visa","Luggage","Suitcase","Hotel","Resort","Beach","Mountain","Forest","Desert","River","Lake","Waterfall","City","Village","Market","Museum","Monument","Cathedral","Mosque","Temple","Border","Tour guide","Souvenir","Map","Backpack","Camera","Safari","Road trip","Train","Bus","Taxi","Motorbike","Flight","Cruise","Island","Peninsula","Volcano"],
-"🎵 Music":["Guitar","Piano","Drum","Violin","Trumpet","Saxophone","Flute","Bass","Keyboard","Microphone","Speaker","Headphones","DJ","Concert","Festival","Album","Song","Chorus","Verse","Beat","Melody","Rhythm","Lyrics","Singer","Rapper","Choir","Band","Orchestra","Spotify","Radio","Afrobeats","Makossa","Bikutsi","Gospel","Hip-hop","Reggae","Jazz","Blues","Classical","Pop","Rock","R&B","Soul","Dancehall","Kizomba","Amapiano","Highlife","Bongo","Salsa","Rumba","Samba","Techno","EDM","Trap","Record label","Music video","Remix","Encore","Beatbox","Acapella","Vinyl","Playlist","Podcast","Streaming","Karaoke","Lullaby","Anthem","Hymn"],
-"🎮 Hobbies":["Football","Basketball","Tennis","Swimming","Running","Cycling","Dancing","Cooking","Baking","Drawing","Painting","Photography","Reading","Writing","Blogging","Gaming","Fishing","Hiking","Gardening","Farming","Sewing","Knitting","Woodworking","Pottery","Singing","Watching movies","Travelling","Camping","Surfing","Skateboarding","Boxing","Wrestling","Yoga","Meditation","Chess","Puzzles","Card games","Dominoes","Collecting stamps","Bird watching","Star gazing","Candle making","Jewellery making","Hair braiding","Makeup","DJing","Beat making","Coding","Magic tricks","Juggling","Rock climbing","Archery","Horse riding","Golf","Cricket","Volleyball","Table tennis","Badminton","Squash"],
-"💻 Technology":["Phone","Laptop","Computer","Tablet","Television","Camera","Printer","Keyboard","Mouse","Screen","Charger","Battery","WiFi","Internet","Bluetooth","USB","Headphones","Speaker","Microphone","Calculator","Smartwatch","Earphones","Power bank","Flash drive","Hard drive","Router","Cloud","App","Software","Website","Browser","Email","Password","Virus","Antivirus","Coding","Robot","Drone","Satellite","Telescope","GPS","Artificial intelligence","Data","Algorithm","Network","Social media","Facebook","Instagram","Twitter","TikTok","WhatsApp","YouTube","Google","Zoom","Netflix","Amazon","Apple","Samsung","Microsoft","3D printer","Virtual reality","Cryptocurrency","Bitcoin"],
-"🧍 Body Parts":["Head","Hair","Face","Eye","Ear","Nose","Mouth","Lip","Tooth","Tongue","Chin","Cheek","Forehead","Eyebrow","Eyelash","Neck","Throat","Shoulder","Arm","Elbow","Wrist","Hand","Finger","Thumb","Nail","Chest","Belly","Stomach","Back","Spine","Hip","Waist","Leg","Knee","Ankle","Foot","Toe","Heel","Skin","Bone","Muscle","Brain","Heart","Lung","Liver","Kidney","Blood","Vein","Nerve","Joint","Rib","Skull","Palm","Sole","Calf","Thigh","Armpit","Navel","Jaw","Gum","Bicep","Hamstring","Diaphragm","Bladder","Pancreas","Spleen"],
-"👗 Fashion & Clothing":["Shirt","T-shirt","Blouse","Dress","Skirt","Trouser","Jeans","Shorts","Jacket","Coat","Suit","Tie","Belt","Shoe","Boot","Sandal","Slipper","Sneaker","Heel","Sock","Underwear","Bra","Hoodie","Sweater","Cardigan","Vest","Scarf","Hat","Cap","Handbag","Purse","Wallet","Watch","Ring","Necklace","Bracelet","Earring","Sunglasses","Uniform","Wedding dress","Tuxedo","Raincoat","Kaftan","Boubou","Dashiki","Kente","Ankara","Pagne","Hijab","Turban","Beret","Crown","Veil","Apron","Mask","Gloves","Overalls","Jumpsuit","Leggings","Garter","Cufflink","Brooch","Pendant","Anklet","Piercing","Tattoo","Swimsuit","Pyjama"],
-"🏠 Household Items":["Bed","Pillow","Blanket","Sheet","Mattress","Sofa","Chair","Table","Desk","Wardrobe","Drawer","Shelf","Bookcase","Mirror","Curtain","Carpet","Mat","Lamp","Bulb","Fan","Air conditioner","Fridge","Freezer","Washing machine","Iron","Broom","Mop","Bucket","Basin","Brush","Sponge","Soap","Detergent","Candle","Matches","Lighter","Torch","Clock","Calendar","Picture frame","Vase","Plant pot","Trash can","Doormat","Door","Window","Lock","Key","Bell","Toolbox","Hammer","Screwdriver","Wrench","Nail","Drill","Ladder","Paint","Stapler","Ruler","Pen","Pencil","Notebook","Scissors","Tape","Glue"],
-"🦸 Superheroes":["Superman","Batman","Spider-Man","Wonder Woman","Iron Man","Captain America","Thor","Black Panther","Hulk","Aquaman","Flash","Green Lantern","Hawkeye","Black Widow","Scarlet Witch","Doctor Strange","Ant-Man","Deadpool","Wolverine","Cyclops","Storm","Professor X","Magneto","Mystique","Nightcrawler","Gambit","Rogue","Vision","War Machine","Falcon","Winter Soldier","Nick Fury","Loki","Hela","Thanos","Ultron","Red Skull","Green Goblin","Doctor Octopus","Venom","Carnage","Electro","Vulture","Mysterio","Joker","Catwoman","Robin","Nightwing","Batgirl","Supergirl","She-Hulk","Ms Marvel","Moon Knight","Hawkgirl","Zatanna","Shazam","Blue Beetle","Booster Gold"],
-"📚 Historical Eras":["Stone Age","Bronze Age","Iron Age","Ancient Egypt","Ancient Greece","Ancient Rome","Medieval times","Renaissance","Industrial Revolution","World War 1","World War 2","Cold War","Space Age","Colonial era","Slave trade","French Revolution","American Revolution","Russian Revolution","Ottoman Empire","Mongol Empire","Roman Empire","British Empire","Aztec Empire","Inca Empire","Mayan civilization","Mesopotamia","Babylon","Sparta","Athens","Viking Age","Crusades","Black Death","Napoleonic Wars","American Civil War","Biafra war","Independence","Apartheid","Rwandan genocide","Berlin Wall","Moon landing","Cuban Missile Crisis","Great Depression","Gold Rush","Age of Exploration","Silk Road","Feudalism","Enlightenment","Scientific Revolution","Age of Steam","Nuclear Age"],
-"🏫 School Subjects":["Maths","English","French","Science","Biology","Chemistry","Physics","History","Geography","Civics","Economics","Accounting","Commerce","Literature","Philosophy","Religion","Art","Music","Physical education","Computer science","Agriculture","Home economics","Technical drawing","Woodwork","Metalwork","Electronics","Tailoring","Catering","Tourism","Law","Medicine","Pharmacy","Nursing","Dentistry","Engineering","Architecture","Journalism","Marketing","Management","Finance","Banking","Statistics","Sociology","Psychology","Anthropology","Political science","Diplomacy","Social work","Education","Linguistics","Translation","Pharmacy","Optometry","Radiology","Veterinary","Geology","Meteorology","Astronomy"],
-"🍎 Fruits & Vegetables":["Mango","Banana","Orange","Pineapple","Watermelon","Avocado","Papaya","Guava","Lemon","Lime","Grape","Apple","Pear","Peach","Cherry","Strawberry","Kiwi","Coconut","Date","Passion fruit","Jackfruit","Tamarind","Soursop","Breadfruit","Plantain","African pear","Bitter kola","Tomato","Pepper","Onion","Garlic","Ginger","Carrot","Cucumber","Lettuce","Cabbage","Spinach","Kale","Broccoli","Cauliflower","Eggplant","Okra","Pumpkin","Sweet corn","Green beans","Peas","Lentils","Cowpea","Groundnut","Sesame","Melon seed","Bitter leaf","Waterleaf","Moringa","Baobab","Palm kernel","Cocoa","Shea nut","Yam","Cassava","Cocoyam","Sweet potato","Plantain"],
-"🏛️ Mythology":["Zeus","Hera","Poseidon","Athena","Apollo","Artemis","Aphrodite","Ares","Hermes","Demeter","Dionysus","Hades","Persephone","Eros","Nike","Medusa","Pegasus","Griffin","Phoenix","Dragon","Unicorn","Werewolf","Vampire","Mermaid","Siren","Centaur","Sphinx","Minotaur","Hydra","Cyclops","Cerberus","Chimera","Titans","Giants","Odin","Thor","Loki","Freya","Valhalla","Asgard","Mjolnir","Ra","Osiris","Isis","Horus","Set","Anubis","Thoth","Bastet","Sekhmet","Sobek","Amun","Geb","Nut","Ptah","Aten","Leviathan","Behemoth","Fenrir","Jormungandr","Yeti","Kraken","Banshee","Gorgon","Harpy","Fury","Nymph","Satyr"],
-"👨‍⚕️ Professions":["Doctor","Nurse","Teacher","Lawyer","Engineer","Architect","Pilot","Driver","Farmer","Fisherman","Carpenter","Plumber","Electrician","Mechanic","Welder","Mason","Painter","Tailor","Barber","Hairdresser","Chef","Waiter","Cashier","Accountant","Banker","Journalist","Reporter","Photographer","Cameraman","Actor","Singer","Dancer","Comedian","Musician","DJ","Producer","Director","Writer","Librarian","Scientist","Researcher","Professor","Lecturer","Pastor","Priest","Imam","Soldier","Police officer","Firefighter","Security guard","Judge","Pharmacist","Dentist","Optician","Veterinarian","Civil servant","Diplomat","Ambassador","Politician","President","Minister","Senator","Mayor","Governor","Surgeon","Radiologist","Gynaecologist","Paediatrician","Cardiologist"],
-"🪐 Planets & Space":["Sun","Moon","Earth","Mars","Venus","Mercury","Jupiter","Saturn","Uranus","Neptune","Pluto","Star","Galaxy","Milky Way","Universe","Solar system","Asteroid","Comet","Meteor","Black hole","White dwarf","Red giant","Supernova","Nebula","Constellation","Orbit","Gravity","Atmosphere","Ozone layer","Aurora","Northern lights","Eclipse","Full moon","New moon","Lunar eclipse","Solar eclipse","Telescope","Observatory","Satellite","Space station","Rocket","Shuttle","Probe","Rover","NASA","SpaceX","Astronaut","Spacewalk","Zero gravity","Crater","Ring","Europa","Titan","Charon","Eris","Ceres","Quaoar","Sedna","Makemake","Haumea","Ganymede","Callisto","Io"],
-"🎲 Board Games & Games":["Chess","Checkers","Ludo","Scrabble","Monopoly","Snakes and Ladders","Dominoes","Draughts","Oware","Mancala","Carrom","Jenga","Uno","Pandemic","Cluedo","Risk","Battleship","Connect Four","Guess Who","Trivial Pursuit","Pictionary","Charades","Truth or Dare","Hide and Seek","Tag","Hopscotch","Jump rope","Marbles","Tug of war","Sack race","Musical chairs","Simon Says","Red light green light","Duck duck goose","Treasure hunt","Scavenger hunt","Chinese whispers","20 Questions","Never Have I Ever","Would You Rather","Two Truths One Lie","I Spy","Memory","Snap","Go Fish","Rummy","Poker","Blackjack","Solitaire","Mahjong","Backgammon","Othello","Fox and Geese","Checkers","Darts","Pool","Bowling","Pinball"],
-"🌤️ Weather":["Sun","Rain","Wind","Storm","Thunder","Lightning","Cloud","Fog","Mist","Haze","Dust","Hail","Frost","Flood","Drought","Rainbow","Tornado","Hurricane","Typhoon","Cyclone","Blizzard","Sandstorm","Heat wave","Cold snap","Monsoon","Harmattan","Dry season","Rainy season","Summer","Winter","Spring","Autumn","Temperature","Humidity","Pressure","Forecast","Weather map","Barometer","Thermometer","Rain gauge","Anemometer","Meteorologist","Climate","Global warming","Greenhouse effect","El Niño","Ozone","Carbon dioxide","Pollution","Acid rain","Smog","UV index","Pollen","Season","Equinox","Solstice","Latitude","Longitude","Altitude","Coastal","Tropical","Humid"],
-"🍳 Kitchen Appliances":["Fridge","Freezer","Microwave","Oven","Cooker","Gas stove","Electric stove","Grill","Toaster","Blender","Juicer","Food processor","Mixer","Kettle","Coffee machine","Rice cooker","Pressure cooker","Slow cooker","Air fryer","Deep fryer","Waffle maker","Sandwich maker","Steamer","Bread maker","Ice cream maker","Popcorn machine","Meat grinder","Can opener","Bottle opener","Chopping board","Knife","Fork","Spoon","Ladle","Spatula","Tongs","Whisk","Rolling pin","Measuring cup","Weighing scale","Timer","Thermometer","Apron","Oven gloves","Dish rack","Washing basin","Sponge","Scrubber","Dishwasher","Storage container","Lunch box","Thermos","Flask","Tray","Plate","Bowl","Mug","Cup","Glass","Pot","Pan","Wok","Casserole","Baking tray","Cake tin","Colander"],
-"💪 Sports":["Football","Basketball","Tennis","Swimming","Running","Cycling","Boxing","Wrestling","Judo","Karate","Taekwondo","Athletics","Marathon","Sprint","High jump","Long jump","Pole vault","Shot put","Discus","Javelin","Relay race","Hurdles","Gymnastics","Trampolining","Diving","Water polo","Rowing","Canoeing","Kayaking","Sailing","Surfing","Skateboarding","Mountain biking","Cross country","Hockey","Ice hockey","Rugby","American football","Baseball","Softball","Cricket","Volleyball","Beach volleyball","Handball","Badminton","Squash","Table tennis","Golf","Archery","Shooting","Fencing","Equestrian","Weightlifting","Powerlifting","Crossfit","Parkour","Rock climbing","Skiing","Snowboarding","Ice skating","Curling","Bobsled"],
-"🌿 Nature":["Tree","Flower","Grass","Bush","Forest","Jungle","Savannah","Desert","Mountain","Hill","Valley","River","Lake","Pond","Waterfall","Stream","Ocean","Sea","Beach","Island","Volcano","Earthquake","Landslide","Erosion","Coral reef","Mangrove","Rainforest","Swamp","Wetland","Glacier","Iceberg","Cave","Canyon","Cliff","Rock","Sand","Soil","Mud","Clay","Stone","Coal","Diamond","Gold","Silver","Iron","Copper","Oil","Gas","Oxygen","Carbon","Nitrogen","Photosynthesis","Ecosystem","Biodiversity","Habitat","Migration","Hibernation","Pollination","Food chain","Decomposition","Recycling","Conservation","Deforestation","Reforestation","Desertification","Pollution","Waste","Compost","Organic","Solar energy","Wind energy","Hydropower","Biomass"],
-"🎭 Arts & Culture":["Painting","Drawing","Sculpture","Photography","Film","Dance","Theatre","Opera","Ballet","Circus","Magic","Storytelling","Poetry","Novel","Short story","Biography","Journalism","Fashion","Architecture","Interior design","Graphic design","Animation","Video game","Street art","Graffiti","Mosaic","Tapestry","Embroidery","Weaving","Pottery","Ceramics","Jewellery","Calligraphy","Origami","Puppet","Mime","Stand-up comedy","Slam poetry","Spoken word","Rap","Traditional dance","Folklore","Proverb","Riddle","Fable","Myth","Legend","Folk song","Lullaby","Anthem","Hymn","Drumming","Mask","Costume","Festival","Carnival","Parade","Exhibition","Gallery","Museum","Library","Monument","Statue","Mural"],
-"🏥 Health & Medicine":["Doctor","Hospital","Clinic","Pharmacy","Medicine","Tablet","Capsule","Injection","Drip","Blood test","X-ray","Scan","Surgery","Operation","Stitches","Bandage","Cast","Wheelchair","Crutches","Vaccination","Antibiotics","Paracetamol","Aspirin","Malaria","Typhoid","Cholera","Yellow fever","HIV","Tuberculosis","Diabetes","Hypertension","Heart attack","Stroke","Cancer","Asthma","Pneumonia","Meningitis","Ebola","COVID-19","Flu","Cold","Fever","Headache","Diarrhoea","Vomiting","Cough","Rash","Allergy","Infection","Fracture","Sprain","Burn","Wound","Scar","Blister","Bruise","Pulse","Blood pressure","Stethoscope","Thermometer","Syringe","Scalpel","Gloves","Ambulance","First aid","CPR","Resuscitation","Physiotherapy"]
-};
-
+const WB={"🐾 Animals":["Dog","Cat","Lion","Tiger","Elephant","Giraffe","Zebra","Monkey","Snake","Frog","Eagle","Parrot","Penguin","Dolphin","Whale","Shark","Crocodile","Turtle","Rabbit","Goat","Sheep","Cow","Pig","Horse","Donkey","Camel","Buffalo","Gorilla","Chimpanzee","Baboon","Hyena","Leopard","Cheetah","Rhino","Hippo","Flamingo","Peacock","Ostrich","Pelican","Stork","Heron","Vulture","Hawk","Owl","Bat","Squirrel","Rat","Mouse","Hedgehog","Porcupine","Antelope","Gazelle","Wildebeest","Warthog","Meerkat","Mongoose","Chameleon","Gecko","Lizard","Iguana","Tortoise","Crab","Lobster","Shrimp","Octopus","Jellyfish","Starfish","Seahorse","Salmon","Catfish","Tilapia","Sardine","Tuna","Firefly","Butterfly","Moth","Bee","Wasp","Ant","Termite","Cricket","Grasshopper","Scorpion","Spider","Dragonfly","Ladybug","Beetle","Centipede","Snail","Earthworm","Pigeon","Sparrow","Crow","Rooster","Hen","Duck","Goose","Turkey","Canary","Panda","Koala","Sloth"],"🍕 Food & Drinks":["Rice","Beans","Plantain","Fufu","Egusi","Ndolé","Koki","Achu","Puff-puff","Pepper soup","Jollof rice","Fried rice","Couscous","Cassava","Yam","Cocoyam","Sweet potato","Corn","Bread","Pasta","Spaghetti","Noodles","Pizza","Hamburger","Sandwich","Omelette","Chicken","Fish","Beef","Sausage","Milk","Yoghurt","Cheese","Butter","Ice cream","Cake","Biscuit","Cookie","Doughnut","Chocolate","Candy","Popcorn","Chips","Groundnuts","Cashew","Coconut","Mango","Banana","Orange","Pineapple","Watermelon","Avocado","Ketchup","Mayonnaise","Honey","Coffee","Tea","Cocoa","Juice","Soda","Smoothie","Suya","Kebab","Grilled fish","Roasted corn","Chin chin","Akara","Waffle","Pancake","Porridge","Oatmeal","Salad","Soup","Stew","Curry","Croissant","Beignets","Shawarma","Sushi","Ramen","Tacos","Burger","Hot dog","Milkshake","Lemonade","Ginger beer","Palm wine","Groundnut soup"],"🎬 Movies & TV":["Action movie","Comedy","Horror","Romance","Animation","Documentary","Drama","Science fiction","Fantasy","Musical","Crime","Mystery","Superhero","Cartoon","Reality show","Game show","Soap opera","Star Wars","Titanic","Avengers","Lion King","Frozen","Spider-Man","Batman","Superman","Fast and Furious","Jurassic Park","Harry Potter","The Matrix","Inception","Joker","Black Panther","Shrek","Toy Story","Finding Nemo","Monsters Inc","Ice Age","Madagascar","Kung Fu Panda","Moana","Avatar","Interstellar","Gladiator","Troy","Braveheart","Forrest Gump","Home Alone","Die Hard","Terminator","Transformers","Iron Man","Thor","Wonder Woman","X-Men","Deadpool","Naruto","Dragon Ball","One Piece","Attack on Titan","Wakanda","Nollywood","Hollywood","Bollywood","Netflix","Cinema","Sequel","Trailer","Premiere","Blockbuster","Oscar","Director","Actor","Actress"],"✈️ Travel & Countries":["Cameroon","Nigeria","Ghana","Kenya","South Africa","Egypt","Morocco","Ethiopia","Tanzania","Uganda","Senegal","Rwanda","Congo","Gabon","France","UK","Germany","Italy","Spain","USA","Canada","Brazil","China","Japan","India","Dubai","Turkey","Greece","Airport","Passport","Visa","Luggage","Suitcase","Hotel","Resort","Beach","Mountain","Forest","Desert","River","Lake","Waterfall","City","Village","Market","Museum","Monument","Cathedral","Mosque","Temple","Border","Tour guide","Souvenir","Map","Backpack","Camera","Safari","Road trip","Train","Bus","Taxi","Motorbike","Flight","Cruise","Island","Peninsula","Volcano"],"🎵 Music":["Guitar","Piano","Drum","Violin","Trumpet","Saxophone","Flute","Bass","Keyboard","Microphone","Speaker","Headphones","DJ","Concert","Festival","Album","Song","Chorus","Verse","Beat","Melody","Rhythm","Lyrics","Singer","Rapper","Choir","Band","Orchestra","Spotify","Radio","Afrobeats","Makossa","Bikutsi","Gospel","Hip-hop","Reggae","Jazz","Blues","Classical","Pop","Rock","R&B","Soul","Dancehall","Kizomba","Amapiano","Highlife","Bongo","Salsa","Rumba","Samba","Techno","EDM","Trap","Record label","Music video","Remix","Encore","Beatbox","Acapella","Vinyl","Playlist","Podcast","Streaming","Karaoke","Lullaby","Anthem","Hymn"],"🎮 Hobbies":["Football","Basketball","Tennis","Swimming","Running","Cycling","Dancing","Cooking","Baking","Drawing","Painting","Photography","Reading","Writing","Blogging","Gaming","Fishing","Hiking","Gardening","Farming","Sewing","Knitting","Woodworking","Pottery","Singing","Watching movies","Travelling","Camping","Surfing","Skateboarding","Boxing","Wrestling","Yoga","Meditation","Chess","Puzzles","Card games","Dominoes","Collecting stamps","Bird watching","Star gazing","Candle making","Jewellery making","Hair braiding","Makeup","DJing","Beat making","Coding","Magic tricks","Juggling","Rock climbing","Archery","Horse riding","Golf","Cricket","Volleyball","Table tennis","Badminton","Squash"],"💻 Technology":["Phone","Laptop","Computer","Tablet","Television","Camera","Printer","Keyboard","Mouse","Screen","Charger","Battery","WiFi","Internet","Bluetooth","USB","Headphones","Speaker","Microphone","Calculator","Smartwatch","Earphones","Power bank","Flash drive","Hard drive","Router","Cloud","App","Software","Website","Browser","Email","Password","Virus","Antivirus","Coding","Robot","Drone","Satellite","Telescope","GPS","Artificial intelligence","Data","Algorithm","Network","Social media","Facebook","Instagram","Twitter","TikTok","WhatsApp","YouTube","Google","Zoom","Netflix","Amazon","Apple","Samsung","Microsoft","3D printer","Virtual reality","Cryptocurrency","Bitcoin"],"🧍 Body Parts":["Head","Hair","Face","Eye","Ear","Nose","Mouth","Lip","Tooth","Tongue","Chin","Cheek","Forehead","Eyebrow","Eyelash","Neck","Throat","Shoulder","Arm","Elbow","Wrist","Hand","Finger","Thumb","Nail","Chest","Belly","Stomach","Back","Spine","Hip","Waist","Leg","Knee","Ankle","Foot","Toe","Heel","Skin","Bone","Muscle","Brain","Heart","Lung","Liver","Kidney","Blood","Vein","Nerve","Joint","Rib","Skull","Palm","Sole","Calf","Thigh","Armpit","Navel","Jaw","Gum","Bicep","Hamstring","Diaphragm","Bladder","Pancreas","Spleen"],"👗 Fashion & Clothing":["Shirt","T-shirt","Blouse","Dress","Skirt","Trouser","Jeans","Shorts","Jacket","Coat","Suit","Tie","Belt","Shoe","Boot","Sandal","Slipper","Sneaker","Heel","Sock","Underwear","Bra","Hoodie","Sweater","Cardigan","Vest","Scarf","Hat","Cap","Handbag","Purse","Wallet","Watch","Ring","Necklace","Bracelet","Earring","Sunglasses","Uniform","Wedding dress","Tuxedo","Raincoat","Kaftan","Boubou","Dashiki","Kente","Ankara","Pagne","Hijab","Turban","Beret","Crown","Veil","Apron","Mask","Gloves","Overalls","Jumpsuit","Leggings","Garter","Cufflink","Brooch","Pendant","Anklet","Piercing","Tattoo","Swimsuit","Pyjama"],"🏠 Household Items":["Bed","Pillow","Blanket","Sheet","Mattress","Sofa","Chair","Table","Desk","Wardrobe","Drawer","Shelf","Bookcase","Mirror","Curtain","Carpet","Mat","Lamp","Bulb","Fan","Air conditioner","Fridge","Freezer","Washing machine","Iron","Broom","Mop","Bucket","Basin","Brush","Sponge","Soap","Detergent","Candle","Matches","Lighter","Torch","Clock","Calendar","Picture frame","Vase","Plant pot","Trash can","Doormat","Door","Window","Lock","Key","Bell","Toolbox","Hammer","Screwdriver","Wrench","Nail","Drill","Ladder","Paint","Stapler","Ruler","Pen","Pencil","Notebook","Scissors","Tape","Glue"],"🦸 Superheroes":["Superman","Batman","Spider-Man","Wonder Woman","Iron Man","Captain America","Thor","Black Panther","Hulk","Aquaman","Flash","Green Lantern","Hawkeye","Black Widow","Scarlet Witch","Doctor Strange","Ant-Man","Deadpool","Wolverine","Cyclops","Storm","Professor X","Magneto","Mystique","Nightcrawler","Gambit","Rogue","Vision","War Machine","Falcon","Winter Soldier","Nick Fury","Loki","Hela","Thanos","Ultron","Red Skull","Green Goblin","Doctor Octopus","Venom","Carnage","Electro","Vulture","Mysterio","Joker","Catwoman","Robin","Nightwing","Batgirl","Supergirl","She-Hulk","Ms Marvel","Moon Knight","Hawkgirl","Zatanna","Shazam","Blue Beetle","Booster Gold"],"📚 Historical Eras":["Stone Age","Bronze Age","Iron Age","Ancient Egypt","Ancient Greece","Ancient Rome","Medieval times","Renaissance","Industrial Revolution","World War 1","World War 2","Cold War","Space Age","Colonial era","Slave trade","French Revolution","American Revolution","Russian Revolution","Ottoman Empire","Mongol Empire","Roman Empire","British Empire","Aztec Empire","Inca Empire","Mayan civilization","Mesopotamia","Babylon","Sparta","Athens","Viking Age","Crusades","Black Death","Napoleonic Wars","American Civil War","Biafra war","Independence","Apartheid","Rwandan genocide","Berlin Wall","Moon landing","Cuban Missile Crisis","Great Depression","Gold Rush","Age of Exploration","Silk Road","Feudalism","Enlightenment","Scientific Revolution","Age of Steam","Nuclear Age"],"🏫 School Subjects":["Maths","English","French","Science","Biology","Chemistry","Physics","History","Geography","Civics","Economics","Accounting","Commerce","Literature","Philosophy","Religion","Art","Music","Physical education","Computer science","Agriculture","Home economics","Technical drawing","Woodwork","Metalwork","Electronics","Tailoring","Catering","Tourism","Law","Medicine","Pharmacy","Nursing","Dentistry","Engineering","Architecture","Journalism","Marketing","Management","Finance","Banking","Statistics","Sociology","Psychology","Anthropology","Political science","Diplomacy","Social work","Education","Linguistics","Translation","Pharmacy","Optometry","Radiology","Veterinary","Geology","Meteorology","Astronomy"],"🍎 Fruits & Vegetables":["Mango","Banana","Orange","Pineapple","Watermelon","Avocado","Papaya","Guava","Lemon","Lime","Grape","Apple","Pear","Peach","Cherry","Strawberry","Kiwi","Coconut","Date","Passion fruit","Jackfruit","Tamarind","Soursop","Breadfruit","Plantain","African pear","Bitter kola","Tomato","Pepper","Onion","Garlic","Ginger","Carrot","Cucumber","Lettuce","Cabbage","Spinach","Kale","Broccoli","Cauliflower","Eggplant","Okra","Pumpkin","Sweet corn","Green beans","Peas","Lentils","Cowpea","Groundnut","Sesame","Melon seed","Bitter leaf","Waterleaf","Moringa","Baobab","Palm kernel","Cocoa","Shea nut","Yam","Cassava","Cocoyam","Sweet potato","Plantain"],"🏛️ Mythology":["Zeus","Hera","Poseidon","Athena","Apollo","Artemis","Aphrodite","Ares","Hermes","Demeter","Dionysus","Hades","Persephone","Eros","Nike","Medusa","Pegasus","Griffin","Phoenix","Dragon","Unicorn","Werewolf","Vampire","Mermaid","Siren","Centaur","Sphinx","Minotaur","Hydra","Cyclops","Cerberus","Chimera","Titans","Giants","Odin","Thor","Loki","Freya","Valhalla","Asgard","Mjolnir","Ra","Osiris","Isis","Horus","Set","Anubis","Thoth","Bastet","Sekhmet","Sobek","Amun","Geb","Nut","Ptah","Aten","Leviathan","Behemoth","Fenrir","Jormungandr","Yeti","Kraken","Banshee","Gorgon","Harpy","Fury","Nymph","Satyr"],"👨‍⚕️ Professions":["Doctor","Nurse","Teacher","Lawyer","Engineer","Architect","Pilot","Driver","Farmer","Fisherman","Carpenter","Plumber","Electrician","Mechanic","Welder","Mason","Painter","Tailor","Barber","Hairdresser","Chef","Waiter","Cashier","Accountant","Banker","Journalist","Reporter","Photographer","Cameraman","Actor","Singer","Dancer","Comedian","Musician","DJ","Producer","Director","Writer","Librarian","Scientist","Researcher","Professor","Lecturer","Pastor","Priest","Imam","Soldier","Police officer","Firefighter","Security guard","Judge","Pharmacist","Dentist","Optician","Veterinarian","Civil servant","Diplomat","Ambassador","Politician","President","Minister","Senator","Mayor","Governor","Surgeon","Radiologist","Gynaecologist","Paediatrician","Cardiologist"],"🪐 Planets & Space":["Sun","Moon","Earth","Mars","Venus","Mercury","Jupiter","Saturn","Uranus","Neptune","Pluto","Star","Galaxy","Milky Way","Universe","Solar system","Asteroid","Comet","Meteor","Black hole","White dwarf","Red giant","Supernova","Nebula","Constellation","Orbit","Gravity","Atmosphere","Ozone layer","Aurora","Northern lights","Eclipse","Full moon","New moon","Lunar eclipse","Solar eclipse","Telescope","Observatory","Satellite","Space station","Rocket","Shuttle","Probe","Rover","NASA","SpaceX","Astronaut","Spacewalk","Zero gravity","Crater","Ring","Europa","Titan","Charon","Eris","Ceres","Quaoar","Sedna","Makemake","Haumea","Ganymede","Callisto","Io"],"🎲 Board Games":["Chess","Checkers","Ludo","Scrabble","Monopoly","Snakes and Ladders","Dominoes","Draughts","Oware","Mancala","Carrom","Jenga","Uno","Pandemic","Cluedo","Risk","Battleship","Connect Four","Guess Who","Trivial Pursuit","Pictionary","Charades","Truth or Dare","Hide and Seek","Tag","Hopscotch","Jump rope","Marbles","Tug of war","Sack race","Musical chairs","Simon Says","Red light green light","Duck duck goose","Treasure hunt","Scavenger hunt","Chinese whispers","20 Questions","Never Have I Ever","Would You Rather","Two Truths One Lie","I Spy","Memory","Snap","Go Fish","Rummy","Poker","Blackjack","Solitaire","Mahjong","Backgammon","Othello","Fox and Geese","Checkers","Darts","Pool","Bowling","Pinball"],"🌤️ Weather":["Sun","Rain","Wind","Storm","Thunder","Lightning","Cloud","Fog","Mist","Haze","Dust","Hail","Frost","Flood","Drought","Rainbow","Tornado","Hurricane","Typhoon","Cyclone","Blizzard","Sandstorm","Heat wave","Cold snap","Monsoon","Harmattan","Dry season","Rainy season","Summer","Winter","Spring","Autumn","Temperature","Humidity","Pressure","Forecast","Weather map","Barometer","Thermometer","Rain gauge","Anemometer","Meteorologist","Climate","Global warming","Greenhouse effect","El Niño","Ozone","Carbon dioxide","Pollution","Acid rain","Smog","UV index","Pollen","Season","Equinox","Solstice","Latitude","Longitude","Altitude","Coastal","Tropical","Humid"],"🍳 Kitchen Appliances":["Fridge","Freezer","Microwave","Oven","Cooker","Gas stove","Electric stove","Grill","Toaster","Blender","Juicer","Food processor","Mixer","Kettle","Coffee machine","Rice cooker","Pressure cooker","Slow cooker","Air fryer","Deep fryer","Waffle maker","Sandwich maker","Steamer","Bread maker","Ice cream maker","Popcorn machine","Meat grinder","Can opener","Bottle opener","Chopping board","Knife","Fork","Spoon","Ladle","Spatula","Tongs","Whisk","Rolling pin","Measuring cup","Weighing scale","Timer","Thermometer","Apron","Oven gloves","Dish rack","Washing basin","Sponge","Scrubber","Dishwasher","Storage container","Lunch box","Thermos","Flask","Tray","Plate","Bowl","Mug","Cup","Glass","Pot","Pan","Wok","Casserole","Baking tray","Cake tin","Colander"],"💪 Sports":["Football","Basketball","Tennis","Swimming","Running","Cycling","Boxing","Wrestling","Judo","Karate","Taekwondo","Athletics","Marathon","Sprint","High jump","Long jump","Pole vault","Shot put","Discus","Javelin","Relay race","Hurdles","Gymnastics","Trampolining","Diving","Water polo","Rowing","Canoeing","Kayaking","Sailing","Surfing","Skateboarding","Mountain biking","Cross country","Hockey","Ice hockey","Rugby","American football","Baseball","Softball","Cricket","Volleyball","Beach volleyball","Handball","Badminton","Squash","Table tennis","Golf","Archery","Shooting","Fencing","Equestrian","Weightlifting","Powerlifting","Crossfit","Parkour","Rock climbing","Skiing","Snowboarding","Ice skating","Curling","Bobsled"],"🌿 Nature":["Tree","Flower","Grass","Bush","Forest","Jungle","Savannah","Desert","Mountain","Hill","Valley","River","Lake","Pond","Waterfall","Stream","Ocean","Sea","Beach","Island","Volcano","Earthquake","Landslide","Erosion","Coral reef","Mangrove","Rainforest","Swamp","Wetland","Glacier","Iceberg","Cave","Canyon","Cliff","Rock","Sand","Soil","Mud","Clay","Stone","Coal","Diamond","Gold","Silver","Iron","Copper","Oil","Gas","Oxygen","Carbon","Nitrogen","Photosynthesis","Ecosystem","Biodiversity","Habitat","Migration","Hibernation","Pollination","Food chain","Decomposition","Recycling","Conservation","Deforestation","Reforestation","Desertification","Pollution","Waste","Compost","Organic","Solar energy","Wind energy","Hydropower","Biomass"],"🎭 Arts & Culture":["Painting","Drawing","Sculpture","Photography","Film","Dance","Theatre","Opera","Ballet","Circus","Magic","Storytelling","Poetry","Novel","Short story","Biography","Journalism","Fashion","Architecture","Interior design","Graphic design","Animation","Video game","Street art","Graffiti","Mosaic","Tapestry","Embroidery","Weaving","Pottery","Ceramics","Jewellery","Calligraphy","Origami","Puppet","Mime","Stand-up comedy","Slam poetry","Spoken word","Rap","Traditional dance","Folklore","Proverb","Riddle","Fable","Myth","Legend","Folk song","Lullaby","Anthem","Hymn","Drumming","Mask","Costume","Festival","Carnival","Parade","Exhibition","Gallery","Museum","Library","Monument","Statue","Mural"],"🏥 Health & Medicine":["Doctor","Hospital","Clinic","Pharmacy","Medicine","Tablet","Capsule","Injection","Drip","Blood test","X-ray","Scan","Surgery","Operation","Stitches","Bandage","Cast","Wheelchair","Crutches","Vaccination","Antibiotics","Paracetamol","Aspirin","Malaria","Typhoid","Cholera","Yellow fever","HIV","Tuberculosis","Diabetes","Hypertension","Heart attack","Stroke","Cancer","Asthma","Pneumonia","Meningitis","Ebola","COVID-19","Flu","Cold","Fever","Headache","Diarrhoea","Vomiting","Cough","Rash","Allergy","Infection","Fracture","Sprain","Burn","Wound","Scar","Blister","Bruise","Pulse","Blood pressure","Stethoscope","Thermometer","Syringe","Scalpel","Gloves","Ambulance","First aid","CPR","Resuscitation","Physiotherapy"]};
 const ALL=Object.entries(WB).flatMap(([cat,words])=>words.map(w=>({word:w,category:cat})));
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function makeDeck(){return shuffle(ALL);}
-
-// ── State ─────────────────────────────────────────────────────────────────────
-const ROUND_TIME=120,MAX_ROUNDS=6,SESSION="ll_session_v3";
-let myId=localStorage.getItem("ll_pid_v3");
-if(!myId){myId="p_"+Math.random().toString(36).slice(2,10);localStorage.setItem("ll_pid_v3",myId);}
+const ROUND_TIME=120,MAX_ROUNDS=6,SESSION="ll_session_v4";
+let myId=localStorage.getItem("ll_pid_v4");
+if(!myId){myId="p_"+Math.random().toString(36).slice(2,10);localStorage.setItem("ll_pid_v4",myId);}
 let myName="",roomId=null,unsub=null,timerIv=null,room=null,advancing=false;
-
 const $=id=>document.getElementById(id);
 const show=id=>$(id).classList.remove("hidden");
 const hide=id=>$(id).classList.add("hidden");
 function goScreen(n){["home","waiting","game","result"].forEach(s=>s===n?show("s-"+s):hide("s-"+s));}
-function toast(msg){const t=$("toast");t.textContent=msg;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),3500);}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),3200);}
 function saveS(){localStorage.setItem(SESSION,JSON.stringify({myName,roomId}));}
 function clearS(){localStorage.removeItem(SESSION);}
-
-// ── Timer ─────────────────────────────────────────────────────────────────────
 function startTimer(startedAt){
-  stopTimer();
-  const CIRC=213.6;
-  timerIv=setInterval(()=>{
+  stopTimer();const CIRC=213.6;timerIv=setInterval(()=>{
     const left=Math.max(0,ROUND_TIME-Math.floor((Date.now()-startedAt)/1000));
-    const m=Math.floor(left/60),s=left%60;
-    $("t-txt").textContent=`${m}:${s.toString().padStart(2,"0")}`;
+    const m=Math.floor(left/60),s=left%60;$("t-txt").textContent=`${m}:${s.toString().padStart(2,"0")}`;
     $("t-arc").style.strokeDashoffset=CIRC*(1-left/ROUND_TIME);
     const c=left>60?"#4ade80":left>30?"#fbbf24":"#f87171";
-    $("t-arc").style.stroke=c; $("t-txt").style.color=c;
-    // host auto-advances on timeout
-    if(left===0&&room&&room.hostId===myId&&!advancing) doNext(true);
+    $("t-arc").style.stroke=c;$("t-txt").style.color=c;
+    if(left===0&&room&&room.hostId===myId&&!advancing)doNext(true);
   },400);
 }
 function stopTimer(){clearInterval(timerIv);timerIv=null;}
-
-// ── Restore session ───────────────────────────────────────────────────────────
 async function tryRestore(){
   const raw=localStorage.getItem(SESSION);if(!raw)return;
-  try{
-    const s=JSON.parse(raw);myName=s.myName;roomId=s.roomId;
-    const r=await fbGet(`rooms/${roomId}`);
-    if(!r||!r.players?.[myId]){clearS();return;}
-    room=r;
+  try{const s=JSON.parse(raw);myName=s.myName;roomId=s.roomId;
+    const r=await fbGet(`rooms/${roomId}`);if(!r||!r.players?.[myId]){clearS();return;}room=r;
     if(r.phase==="waiting"){renderWaiting();goScreen("waiting");}
     else if(r.phase==="playing"){renderGame();goScreen("game");if(r.currentRound?.startedAt)startTimer(r.currentRound.startedAt);}
-    else if(r.phase==="result"){renderResult();goScreen("result");}
-    listen();
-  }catch(e){clearS();}
+    else if(r.phase==="result"){renderResult();goScreen("result");};listen();}catch(e){clearS();}
 }
-
-// ── Listen ─────────────────────────────────────────────────────────────────────
 function listen(){
-  if(unsub)unsub();
-  unsub=fbOn(`rooms/${roomId}`,r=>{
-    if(!r)return;
-    const prev=room?.phase;
-    const prevRound=room?.round;
-    const prevStart=room?.currentRound?.startedAt;
-    room=r;
+  if(unsub)unsub();unsub=fbOn(`rooms/${roomId}`,r=>{
+    if(!r)return;const prev=room?.phase;const prevRound=room?.round;const prevStart=room?.currentRound?.startedAt;room=r;
     if(r.phase==="playing"&&prev!=="playing"){renderGame();goScreen("game");startTimer(r.currentRound.startedAt);advancing=false;}
     else if(r.phase==="result"&&prev!=="result"){stopTimer();renderResult();goScreen("result");}
     else if(r.phase==="waiting"&&prev==="result"){renderWaiting();goScreen("waiting");}
     else if(r.phase==="playing"){
-      // new round started
       if(r.round!==prevRound||r.currentRound?.startedAt!==prevStart){startTimer(r.currentRound.startedAt);advancing=false;hideFeedback();}
       renderGame();
     }
     else if(r.phase==="waiting"){renderWaiting();}
   });
 }
-
-// ── Create ────────────────────────────────────────────────────────────────────
-window.doCreate=async function(){
-  const n=$("create-name").value.trim();if(!n)return;
-  myName=n;roomId=Math.random().toString(36).slice(2,8).toUpperCase();
-  const deck=makeDeck().slice(0,MAX_ROUNDS*3);
-  const r={id:roomId,hostId:myId,phase:"waiting",players:{[myId]:{id:myId,name:n}},scores:{[myId]:0},round:0,maxRounds:MAX_ROUNDS,currentRound:null,deck};
-  room=r;await fbSet(`rooms/${roomId}`,r);saveS();renderWaiting();goScreen("waiting");listen();
-};
-
-// ── Join ──────────────────────────────────────────────────────────────────────
-window.doJoin=async function(){
-  const n=$("join-name").value.trim(),code=$("join-code").value.trim();
-  if(!n||code.length!==6)return;
-  const ex=await fbGet(`rooms/${code}`);
-  if(!ex){toast("Room not found. Check the code.");return;}
-  if(Object.keys(ex.players||{}).length>=2&&!ex.players[myId]){toast("Room is already full!");return;}
-  myName=n;roomId=code;
-  await fbUpd(`rooms/${code}/players`,{[myId]:{id:myId,name:n}});
-  await fbUpd(`rooms/${code}/scores`,{[myId]:ex.scores?.[myId]??0});
-  room=await fbGet(`rooms/${roomId}`);saveS();renderWaiting();goScreen("waiting");listen();
-};
-
-// ── Start ─────────────────────────────────────────────────────────────────────
-window.doStart=async function(){
-  const deck=room.deck||makeDeck().slice(0,MAX_ROUNDS*3);
-  const e=deck[0];
-  await fbUpd(`rooms/${roomId}`,{phase:"playing",round:1,currentRound:{word:e.word,category:e.category,giverId:myId,clues:[],guesses:[],startedAt:Date.now(),solved:false,deckIdx:0}});
-};
-
-// ── Next round ────────────────────────────────────────────────────────────────
-window.doNext=async function(fromTimer=false){
-  if(advancing)return; advancing=true;
-  // Only host can advance
-  if(room.hostId!==myId){advancing=false;return;}
-  const fresh=await fbGet(`rooms/${roomId}`);
-  if(!fresh||fresh.phase!=="playing"){advancing=false;return;}
-  // Dedup: make sure we're still on same round
-  if(fresh.round!==room.round){advancing=false;return;}
-  const next=(fresh.round||1)+1;
-  if(next>fresh.maxRounds){await fbUpd(`rooms/${roomId}`,{phase:"result"});advancing=false;return;}
-  const players=Object.values(fresh.players||{});
-  const prevGiver=fresh.currentRound?.giverId;
-  const nextGiver=players.find(p=>p.id!==prevGiver)?.id||players[0]?.id;
-  const deck=fresh.deck||[];
-  const nextIdx=(fresh.currentRound?.deckIdx??0)+1;
-  const e=deck[nextIdx]||shuffle(ALL)[0];
-  await fbUpd(`rooms/${roomId}`,{round:next,currentRound:{word:e.word,category:e.category,giverId:nextGiver,clues:[],guesses:[],startedAt:Date.now(),solved:false,deckIdx:nextIdx}});
-};
-
-// ── Clue ──────────────────────────────────────────────────────────────────────
-window.doClue=async function(){
-  const inp=$("clue-inp"),clue=inp.value.trim();if(!clue)return;inp.value="";
-  const cr=await fbGet(`rooms/${roomId}/currentRound`);if(!cr)return;
-  await fbUpd(`rooms/${roomId}/currentRound`,{clues:[...(cr.clues||[]),clue]});
-};
-
-// ── Guess ──────────────────────────────────────────────────────────────────────
-window.doGuess=async function(){
-  const inp=$("guess-inp"),guess=inp.value.trim();if(!guess)return;inp.value="";
-  const fresh=await fbGet(`rooms/${roomId}`);if(!fresh)return;
-  const correct=guess.toLowerCase()===(fresh.currentRound?.word||"").toLowerCase();
-  const elapsed=Math.floor((Date.now()-fresh.currentRound.startedAt)/1000);
-  const pts=correct?Math.max(1,Math.ceil(((ROUND_TIME-elapsed)/ROUND_TIME)*10)):0;
-  const guesses=[...(fresh.currentRound?.guesses||[]),guess];
-  await fbUpd(`rooms/${roomId}/currentRound`,{guesses,solved:correct});
-  if(pts>0)await fbUpd(`rooms/${roomId}/scores`,{[myId]:(fresh.scores?.[myId]||0)+pts});
-  showFeedback(correct?"✅ Correct!":"❌ Nope, try again!",correct);
-  if(correct){
-    setTimeout(()=>{hideFeedback();if(room?.hostId===myId)doNext();},1800);
-  } else setTimeout(hideFeedback,1200);
-};
-
-function showFeedback(msg,ok){
-  const f=$("g-feedback");f.textContent=msg;f.className="feedback "+(ok?"fb-ok":"fb-no");
-  f.classList.remove("hidden");
-}
+window.doCreate=async function(){const n=$("create-name").value.trim();if(!n)return;myName=n;roomId=Math.random().toString(36).slice(2,8).toUpperCase();const deck=makeDeck().slice(0,MAX_ROUNDS*3);const r={id:roomId,hostId:myId,phase:"waiting",players:{[myId]:{id:myId,name:n}},scores:{[myId]:0},round:0,maxRounds:MAX_ROUNDS,currentRound:null,deck};room=r;await fbSet(`rooms/${roomId}`,r);saveS();renderWaiting();goScreen("waiting");listen();};
+window.doJoin=async function(){const n=$("join-name").value.trim(),code=$("join-code").value.trim();if(!n||code.length!==6)return;const ex=await fbGet(`rooms/${code}`);if(!ex){toast("Room not found. Check the code.");return;}if(Object.keys(ex.players||{}).length>=2&&!ex.players[myId]){toast("Room is full!");return;}myName=n;roomId=code;await fbUpd(`rooms/${code}/players`,{[myId]:{id:myId,name:n}});await fbUpd(`rooms/${code}/scores`,{[myId]:ex.scores?.[myId]??0});room=await fbGet(`rooms/${roomId}`);saveS();renderWaiting();goScreen("waiting");listen();};
+window.doStart=async function(){const deck=room.deck||makeDeck().slice(0,MAX_ROUNDS*3);const e=deck[0];await fbUpd(`rooms/${roomId}`,{phase:"playing",round:1,currentRound:{word:e.word,category:e.category,giverId:myId,clues:[],guesses:[],startedAt:Date.now(),solved:false,deckIdx:0}});};
+window.doNext=async function(fromTimer=false){if(advancing)return;advancing=true;if(room.hostId!==myId){advancing=false;return;}const fresh=await fbGet(`rooms/${roomId}`);if(!fresh||fresh.phase!=="playing"){advancing=false;return;}if(fresh.round!==room.round){advancing=false;return;}const next=(fresh.round||1)+1;if(next>fresh.maxRounds){await fbUpd(`rooms/${roomId}`,{phase:"result"});advancing=false;return;}const players=Object.values(fresh.players||{});const prevGiver=fresh.currentRound?.giverId;const nextGiver=players.find(p=>p.id!==prevGiver)?.id||players[0]?.id;const deck=fresh.deck||[];const nextIdx=(fresh.currentRound?.deckIdx??0)+1;const e=deck[nextIdx]||shuffle(ALL)[0];await fbUpd(`rooms/${roomId}`,{round:next,currentRound:{word:e.word,category:e.category,giverId:nextGiver,clues:[],guesses:[],startedAt:Date.now(),solved:false,deckIdx:nextIdx}});};
+window.doClue=async function(){const inp=$("clue-inp"),clue=inp.value.trim();if(!clue)return;inp.value="";const cr=await fbGet(`rooms/${roomId}/currentRound`);if(!cr)return;await fbUpd(`rooms/${roomId}/currentRound`,{clues:[...(cr.clues||[]),clue]});};
+window.doGuess=async function(){const inp=$("guess-inp"),guess=inp.value.trim();if(!guess)return;inp.value="";const fresh=await fbGet(`rooms/${roomId}`);if(!fresh)return;const correct=guess.toLowerCase()===(fresh.currentRound?.word||"").toLowerCase();const elapsed=Math.floor((Date.now()-fresh.currentRound.startedAt)/1000);const pts=correct?Math.max(1,Math.ceil(((ROUND_TIME-elapsed)/ROUND_TIME)*10)):0;const guesses=[...(fresh.currentRound?.guesses||[]),guess];await fbUpd(`rooms/${roomId}/currentRound`,{guesses,solved:correct});if(pts>0)await fbUpd(`rooms/${roomId}/scores`,{[myId]:(fresh.scores?.[myId]||0)+pts});showFeedback(correct?"✅ Correct!":"❌ Try again!",correct);if(correct){setTimeout(()=>{hideFeedback();if(room?.hostId===myId)doNext();},1800);}else setTimeout(hideFeedback,1200);};
+function showFeedback(msg,ok){const f=$("g-feedback");f.textContent=msg;f.className="feedback "+(ok?"fb-ok":"fb-no");f.classList.remove("hidden");}
 function hideFeedback(){$("g-feedback").classList.add("hidden");}
-
-// ── Play again ────────────────────────────────────────────────────────────────
-window.doPlayAgain=async function(){
-  const reset={};Object.keys(room?.players||{}).forEach(id=>reset[id]=0);
-  const deck=makeDeck().slice(0,MAX_ROUNDS*3);
-  await fbUpd(`rooms/${roomId}`,{phase:"waiting",round:0,scores:reset,currentRound:null,deck});
-};
-
-// ── Leave ─────────────────────────────────────────────────────────────────────
-window.doLeave=async function(){
-  if(unsub){unsub();unsub=null;}stopTimer();clearS();
-  if(roomId)await fbDel(`rooms/${roomId}`);
-  roomId=null;room=null;myName="";showMode(null);goScreen("home");
-};
-
-// ── Render Waiting ────────────────────────────────────────────────────────────
-function renderWaiting(){
-  $("w-code").textContent=room.id;
-  const pl=Object.values(room.players||{});
-  const list=$("w-players");list.innerHTML="";
-  pl.forEach(p=>{
-    const d=document.createElement("div");d.className="player-chip";
-    d.innerHTML=`<div class="avatar">${p.name.slice(0,2).toUpperCase()}</div><span style="flex:1;font-weight:500">${p.name}</span>${p.id===room.hostId?"<span>👑</span>":""}`;
-    list.appendChild(d);
-  });
-  if(pl.length<2){const w=document.createElement("p");w.className="anim-pulse";w.style.cssText="color:var(--muted);font-size:.85rem;text-align:center;padding:8px";w.textContent="Waiting for partner to join…";list.appendChild(w);}
-  if(pl.length>=2&&room.hostId===myId)show("w-start"); else hide("w-start");
-}
-
-// ── Render Game ───────────────────────────────────────────────────────────────
-function renderGame(){
-  const cr=room?.currentRound||{};
-  const isGiver=cr.giverId===myId;
-  const pl=room?.players||{},sc=room?.scores||{};
-  const partner=Object.values(pl).find(p=>p.id!==myId);
-  $("g-myname").textContent=myName;
-  $("g-pname").textContent=partner?.name||"Partner";
-  $("g-myscore").textContent=sc[myId]||0;
-  $("g-pscore").textContent=sc[partner?.id]||0;
-  $("g-round").textContent=`${room.round||1}/${room.maxRounds||MAX_ROUNDS}`;
-
-  if(isGiver){
-    show("p-giver");hide("p-guesser");
-    $("g-word").textContent=cr.word||"";
-    $("g-cat-giver").textContent=cr.category||"";
-    const ca=$("g-clues-sent");ca.innerHTML="";
-    if(!(cr.clues||[]).length){ca.innerHTML='<span class="waiting-clue">No clues sent yet…</span>';}
-    else(cr.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-sent anim-pop";s.textContent=c;ca.appendChild(s);});
-    // Only host sees next button
-    if(room.hostId===myId)show("skip-btn"); else hide("skip-btn");
-  } else {
-    hide("p-giver");show("p-guesser");
-    $("g-cat-guesser").textContent=cr.category||"…";
-    const cd=$("g-clues-recv");cd.innerHTML="";
-    if(!(cr.clues||[]).length){cd.innerHTML='<span class="waiting-clue">Waiting for clues…</span>';}
-    else(cr.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-recv anim-pop";s.textContent=c;cd.appendChild(s);});
-    const pg=$("g-past");pg.innerHTML="";
-    (cr.guesses||[]).forEach(g=>{const s=document.createElement("span");s.className=g.toLowerCase()===(cr.word||"").toLowerCase()?"g-hit":"g-miss";s.textContent=g;pg.appendChild(s);});
-  }
-}
-
-// ── Render Result ─────────────────────────────────────────────────────────────
-function renderResult(){
-  const pl=room?.players||{},sc=room?.scores||{};
-  const sorted=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
-  const wid=sorted[0]?.[0];
-  $("r-trophy").textContent=wid===myId?"🏆":"💪";
-  $("r-title").textContent=wid===myId?"You won! 🎉":`${pl[wid]?.name||"Partner"} wins! 🎉`;
-  const sc2=$("r-scores");sc2.innerHTML="";
-  sorted.forEach(([id,pts])=>{
-    const d=document.createElement("div");d.className="score-row"+(id===myId?" mine":"");
-    d.innerHTML=`<div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="width:32px;height:32px;font-size:.75rem">${pl[id]?.name?.slice(0,2).toUpperCase()||"??"}</div><span style="font-weight:500">${pl[id]?.name||"Player"} ${id===wid?"👑":""}</span></div><span class="r-pts">${pts}</span>`;
-    sc2.appendChild(d);
-  });
-}
-
-// ── Home mode ─────────────────────────────────────────────────────────────────
-window.showMode=function(mode){
-  hide("home-btns");hide("home-create");hide("home-join");
-  if(!mode)show("home-btns");
-  else if(mode==="create")show("home-create");
-  else show("home-join");
-};
-
+window.doPlayAgain=async function(){const reset={};Object.keys(room?.players||{}).forEach(id=>reset[id]=0);const deck=makeDeck().slice(0,MAX_ROUNDS*3);await fbUpd(`rooms/${roomId}`,{phase:"waiting",round:0,scores:reset,currentRound:null,deck});};
+window.doLeave=async function(){if(unsub){unsub();unsub=null;}stopTimer();clearS();if(roomId)await fbDel(`rooms/${roomId}`);roomId=null;room=null;myName="";showMode(null);goScreen("home");};
+function renderWaiting(){$("w-code").textContent=room.id;const pl=Object.values(room.players||{});const list=$("w-players");list.innerHTML="";pl.forEach(p=>{const d=document.createElement("div");d.className="player-chip";d.innerHTML=`<div class="avatar">${p.name.slice(0,2).toUpperCase()}</div><span style="flex:1;font-weight:500;font-size:.9rem">${p.name}</span>${p.id===room.hostId?"<span>👑</span>":""}`;list.appendChild(d);});if(pl.length<2){const w=document.createElement("p");w.className="anim-pulse";w.style.cssText="color:var(--muted);font-size:.8rem;text-align:center;padding:6px";w.textContent="Waiting…";list.appendChild(w);}if(pl.length>=2&&room.hostId===myId)show("w-start");else hide("w-start");}
+function renderGame(){const cr=room?.currentRound||{};const isGiver=cr.giverId===myId;const pl=room?.players||{},sc=room?.scores||{};const partner=Object.values(pl).find(p=>p.id!==myId);$("g-myname").textContent=myName;$("g-pname").textContent=partner?.name||"Partner";$("g-myscore").textContent=sc[myId]||0;$("g-pscore").textContent=sc[partner?.id]||0;$("g-round").textContent=`${room.round||1}/${room.maxRounds||MAX_ROUNDS}`;if(isGiver){show("p-giver");hide("p-guesser");$("g-word").textContent=cr.word||"";$("g-cat-giver").textContent=cr.category||"";const ca=$("g-clues-sent");ca.innerHTML="";if(!(cr.clues||[]).length){ca.innerHTML='<span class="waiting-clue">No clues yet…</span>';}else(cr.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-sent";s.textContent=c;ca.appendChild(s);});if(room.hostId===myId)show("skip-btn");else hide("skip-btn");}else{hide("p-giver");show("p-guesser");$("g-cat-guesser").textContent=cr.category||"…";const cd=$("g-clues-recv");cd.innerHTML="";if(!(cr.clues||[]).length){cd.innerHTML='<span class="waiting-clue">Waiting…</span>';}else(cr.clues||[]).forEach(c=>{const s=document.createElement("span");s.className="clue-recv";s.textContent=c;cd.appendChild(s);});const pg=$("g-past");pg.innerHTML="";(cr.guesses||[]).forEach(g=>{const s=document.createElement("span");s.className=g.toLowerCase()===(cr.word||"").toLowerCase()?"g-hit":"g-miss";s.textContent=g;pg.appendChild(s);});}}
+function renderResult(){const pl=room?.players||{},sc=room?.scores||{};const sorted=Object.entries(sc).sort((a,b)=>b[1]-a[1]);const wid=sorted[0]?.[0];$("r-trophy").textContent=wid===myId?"🏆":"💪";$("r-title").textContent=wid===myId?"You won! 🎉":`${pl[wid]?.name||"Partner"} wins! 🎉`;const sc2=$("r-scores");sc2.innerHTML="";sorted.forEach(([id,pts])=>{const d=document.createElement("div");d.className="score-row"+(id===myId?" mine":"");d.innerHTML=`<div style="display:flex;align-items:center;gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:.7rem">${pl[id]?.name?.slice(0,2).toUpperCase()||"??"}</div><span style="font-weight:500;font-size:.9rem">${pl[id]?.name||"Player"} ${id===wid?"👑":""}</span></div><span class="r-pts">${pts}</span>`;sc2.appendChild(d);});}
+window.showMode=function(mode){hide("home-btns");hide("home-create");hide("home-join");if(!mode)show("home-btns");else if(mode==="create")show("home-create");else show("home-join");};
 tryRestore();
 </script>
 </body>
-</html>
+</html>`
